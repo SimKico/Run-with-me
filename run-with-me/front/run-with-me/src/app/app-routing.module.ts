@@ -44,7 +44,7 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: '/verification',
+        path: 'verification',
         loadChildren: './about/about.module#AboutModule'
     },
     {
