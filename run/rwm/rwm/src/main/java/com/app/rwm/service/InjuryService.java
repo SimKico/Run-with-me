@@ -20,14 +20,18 @@ public class InjuryService {
 
 	@Autowired
 	public InjuryService(KieContainer kieContainer) {
+		System.out.println("Checking");
 		log.info("Initialising a new example session.");
 		this.kieContainer = kieContainer;
 	}
 	public Injury isCanceledPreparation(Injury injury) {
 		System.out.println("Checking");
 		KieSession kieSession = kieContainer.newKieSession("test-session");
+		System.out.println("Checking" + kieSession);
 		kieSession.insert(injury);
+		System.out.println("Checking");
 		kieSession.fireAllRules();
+		System.out.println("Rules");
 		kieSession.dispose();
 		return injury;
 		

@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-public class Authority implements GrantedAuthority{
+public class Authority
+//implements GrantedAuthority
+{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -50,27 +52,27 @@ public class Authority implements GrantedAuthority{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	@Override
-	public String getAuthority() {
-		return role;
-	}
-	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Authority a = (Authority) o;
-        if (a.getId() == null || id == null) {
-            if(a.getRole().equals(getRole())){
-                return true;
-            }
-            return false;
-        }
-        return Objects.equals(id, a.getId());
-    }
+//
+//	@Override
+//	public String getAuthority() {
+//		return role;
+//	}
+//	
+//	@Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//        Authority a = (Authority) o;
+//        if (a.getId() == null || id == null) {
+//            if(a.getRole().equals(getRole())){
+//                return true;
+//            }
+//            return false;
+//        }
+//        return Objects.equals(id, a.getId());
+//    }
 }

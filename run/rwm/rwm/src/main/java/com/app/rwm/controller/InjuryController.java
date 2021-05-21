@@ -21,12 +21,14 @@ public class InjuryController{
 	@Autowired
 	private InjuryService injuryService;
 	
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	 public ResponseEntity<?> isCancelingPreparation() {
-		System.out.println("injury");
-//		INJURY_TYPE t = INJURY_TYPE.valueOf(injury);
-//		Injury i = new Injury(t);
-//		Injury i2 = injuryService.isCanceledPreparation(i);
+	@RequestMapping(value = "/get/{injury}", method = RequestMethod.GET)
+	 public ResponseEntity<?> isCancelingPreparation(@PathVariable("injury") String injury) {
+		System.out.println("injury"+ injury);
+		INJURY_TYPE t = INJURY_TYPE.valueOf(injury);
+		Injury i = new Injury(t);
+		System.out.println("injury"+ i);
+		Injury i2 = injuryService.isCanceledPreparation(i);
+		System.out.println("i2"+ i2);
 		return new ResponseEntity(HttpStatus.OK);
 	
     }

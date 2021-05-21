@@ -45,13 +45,13 @@ public class RunnerData {
 	private PHYSICAL_FITNESS physicalFitness;
 	private TIME_GOAL timeGoal;
 
-//	@OneToOne
-//	@MapsId
-//	private User user;
+	@OneToOne
+	@MapsId
+	private User user;
 	
-//    @OneToMany(mappedBy = "runnerData", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	private Set<Injury> injury = new HashSet<Injury>();
-//    
+    @OneToMany(mappedBy = "runnerData", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Injury> injury = new HashSet<Injury>();
+    
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private TrainingPlan trainingPlan;

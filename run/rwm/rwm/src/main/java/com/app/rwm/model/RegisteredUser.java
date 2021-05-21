@@ -9,9 +9,9 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("registered_user")
 public class RegisteredUser  extends User{
-//
-//	@OneToMany(fetch = FetchType.EAGER)
-//	private Set<RunnerData> runnerData;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<RunnerData> runnerData;
 
 	public RegisteredUser() {
 		super();

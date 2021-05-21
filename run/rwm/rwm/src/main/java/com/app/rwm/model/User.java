@@ -22,16 +22,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public class User implements UserDetails{
+public class User
+//implements UserDetails
+{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -134,7 +136,7 @@ public class User implements UserDetails{
 
 	public void setPassword(String password) {
 		Timestamp now = new Timestamp(new Date().getTime());
-        this.setLastPasswordResetDate(now);
+//        this.setLastPasswordResetDate(now);
 		this.password = password;
 	}
 
@@ -170,51 +172,51 @@ public class User implements UserDetails{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	@Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public Timestamp getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
-
-    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.authority;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", active=" + active + ", verified=" + verified
-				+ ", authority=" + authority + ", lastPasswordResetDate=" + lastPasswordResetDate + "]";
-	}
+//	
+//	@Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
+//
+//    public Timestamp getLastPasswordResetDate() {
+//        return lastPasswordResetDate;
+//    }
+//
+//    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+//        this.lastPasswordResetDate = lastPasswordResetDate;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return this.authority;
+//	}
+//
+//	@Override
+//	public String getUsername() {
+//		return this.email;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+//				+ ", password=" + password + ", active=" + active + ", verified=" + verified
+//				+ ", authority=" + authority + ", lastPasswordResetDate=" + lastPasswordResetDate + "]";
+//	}
 
 	
 

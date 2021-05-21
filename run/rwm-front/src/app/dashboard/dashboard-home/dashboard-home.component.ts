@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -39,7 +40,8 @@ export class DashboardHomeComponent implements OnInit {
   selected = new FormControl(this.injury);
   send(injury:string): Observable<any> {
     console.log(this.injury);
-    return this.http.get('http://localhost:8080/injuries/get', {headers: this.headers, responseType: 'json'});
+    return this.http.get('http://localhost:8080/injuries/get/BROKEN_LEG')
+    .pipe(map((response) => {console.log("response")}));
 
   }
 }

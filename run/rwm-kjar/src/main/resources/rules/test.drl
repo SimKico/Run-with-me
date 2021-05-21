@@ -1,6 +1,6 @@
-package com.sample
+package com.main
  
-import com.sample.DroolsTest.Message;
+import com.app.rwm.model.Injury;
  
 rule "Cancel the preparation"
     when
