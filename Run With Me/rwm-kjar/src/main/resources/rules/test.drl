@@ -1,0 +1,10 @@
+package com.main
+ 
+import com.app.rwm.model.RacePlanner;
+ 
+rule "test"
+    when
+        $i : RacePlanner()
+    then
+        System.out.println( injuryCategory );
+end

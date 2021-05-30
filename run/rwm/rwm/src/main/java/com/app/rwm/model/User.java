@@ -1,125 +1,108 @@
 package com.app.rwm.model;
 
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-//
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
 
+import com.app.rwm.enums.USER_ROLE;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class User
-//implements UserDetails
 {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+	private Long id;
 
-	@Column(nullable = true)
-	protected String firstName;
+	private String name;
 
-	@Column(nullable = true)
-	protected String lastName;
+	private String surname;
 
-	@Column(unique = true)
-	protected String email;
+	@Column(unique=true, length=100)
+	private String email;
+	
+	private boolean verified;
 
-	@Column(unique=false,nullable = false)
-	protected String password;
+	@Column(unique=true, length=100)
+	private String username;
 
-	@Column(nullable = true)
-	protected Boolean active;
+	private String password;
 
-	@Column(nullable = true)
-	protected Boolean verified;
-
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	//@JoinColumn(name = "user_id", nullable = false)
-	protected Set<Authority> authority;
-
-	@Column(name = "last_password_reset_date",nullable = true)
-    private Timestamp lastPasswordResetDate;
+	@Enumerated(EnumType.STRING)
+	private USER_ROLE userRole;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "training_plan_id", referencedColumnName = "id")
+	private TrainingPlan trainingPlan;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "runner_data_id", referencedColumnName = "id")
+	private RunnerData runnerData;
 	
 	public User() {
 		super();
 	}
-	
-	public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
-	public User(Long id, String firstName, String lastName, String email, String password, Boolean active,
-			Boolean verified, Set<Authority> authority) {
+	public User(Long id, String name, String surname, String email, boolean verified, String username, String password,
+			USER_ROLE userRole, TrainingPlan trainingPlan, RunnerData runnerData) {
 		super();
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
+		this.surname = surname;
 		this.email = email;
-		this.password = password;
-		this.active = active;
 		this.verified = verified;
-		this.authority = authority;
-	}
-
-	public User(String firstName, String lastName, String email, String password, Boolean active, Boolean verified,
-			Set<Authority> authority) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
+		this.username = username;
 		this.password = password;
-		this.active = active;
-		this.verified = verified;
-		this.authority = authority;
+		this.userRole = userRole;
+		this.trainingPlan = trainingPlan;
+		this.runnerData = runnerData;
 	}
 
-	public User(String email2, String password2, String firstName2, String lastName2) {
-		this.firstName = firstName2;
-		this.lastName = lastName2;
-		this.email = email2;
-		this.password = password2;
+	public void update(User user) {
+		this.username = user.getUsername();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+	}
+	
+	public void registration() {
+		this.userRole = USER_ROLE.ROLE_RUNNER;
+		this.verified = false;
+	}
+	
+	public User(Long userId) {
+		this.id = userId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public Long getId() {
+		return id;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getName() {
+		return name;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getEmail() {
@@ -130,94 +113,53 @@ public class User
 		this.email = email;
 	}
 
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
-		Timestamp now = new Timestamp(new Date().getTime());
-//        this.setLastPasswordResetDate(now);
 		this.password = password;
 	}
 
-	public Boolean getActive() {
-		return active;
+	public USER_ROLE getUserRole() {
+		return userRole;
 	}
 
-	public void setActive(Boolean active) {
-		this.active = active;
+	public void setUserRole(USER_ROLE userRole) {
+		this.userRole = userRole;
 	}
 
-	public Boolean getVerified() {
-		return verified;
+	public TrainingPlan getTrainingPlan() {
+		return trainingPlan;
 	}
 
-	public void setVerified(Boolean verified) {
-		this.verified = verified;
+	public void setTrainingPlan(TrainingPlan trainingPlan) {
+		this.trainingPlan = trainingPlan;
 	}
 
-
-	public Set<Authority> getAuthority() {
-		return authority;
+	public RunnerData getRunnerData() {
+		return runnerData;
 	}
 
-	public void setAuthority(Set<Authority> set) {
-		this.authority = set;
+	public void setRunnerData(RunnerData runnerData) {
+		this.runnerData = runnerData;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-//	
-//	@Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
-//
-//    public Timestamp getLastPasswordResetDate() {
-//        return lastPasswordResetDate;
-//    }
-//
-//    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
-//        this.lastPasswordResetDate = lastPasswordResetDate;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		return this.authority;
-//	}
-//
-//	@Override
-//	public String getUsername() {
-//		return this.email;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-//				+ ", password=" + password + ", active=" + active + ", verified=" + verified
-//				+ ", authority=" + authority + ", lastPasswordResetDate=" + lastPasswordResetDate + "]";
-//	}
-
 	
 
 }

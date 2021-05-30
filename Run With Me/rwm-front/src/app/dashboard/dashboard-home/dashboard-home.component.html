@@ -1,0 +1,25 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+
+  <div fxFlex="95%">
+    <div class="container" fxLayout="row" fxLayoutAlign="center none">
+
+      <h2>Welcome back, {{currentUser.fullName}}!</h2>
+
+    </div>
+
+    <div class="container" fxLayout="row" fxLayoutAlign="center none">
+      <div fxFlex="50%" class="text-center no-records animate">
+
+
+        <mat-form-field>
+          <mat-select name="injury" [(value)]="injury" placeholder="Injury">
+            <mat-option [value]="'NA'">None</mat-option>
+            <mat-option [value]="'ACHILLES_TENDINITIS'">ACHILLES_TENDINITIS</mat-option>
+            <mat-option [value]="'KNEE_PAIN'">KNEE_PAIN</mat-option>
+            <mat-option [value]="'BROKEN_LEG'">BROKEN_LEG</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button color="primary" (click) = "send(injury)">Send</button>
+    </div>
+  </div>
+</div>

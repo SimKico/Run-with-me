@@ -1,0 +1,1 @@
+insert into race_planner (id, test) values (1, 'test')

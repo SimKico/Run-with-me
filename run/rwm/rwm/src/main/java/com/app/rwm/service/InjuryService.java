@@ -16,18 +16,19 @@ public class InjuryService {
 	private static final Logger log = LoggerFactory.getLogger(InjuryService.class);
 	
 	@Autowired
-	private KieContainer kieContainer;
+	private KieSession kieSession;
 
 	@Autowired
-	public InjuryService(KieContainer kieContainer) {
+	public InjuryService(KieSession kieSession) {
 		System.out.println("Checking");
 		log.info("Initialising a new example session.");
-		this.kieContainer = kieContainer;
+		this.kieSession = kieSession;
 	}
+	
 	public Injury isCanceledPreparation(Injury injury) {
 		System.out.println("Checking");
-		KieSession kieSession = kieContainer.newKieSession("test-session");
-		System.out.println("Checking" + kieSession);
+//		KieSession kieSession = kieContainer.newKieSession("test-session");
+//		System.out.println("Checking" + kieSession);
 		kieSession.insert(injury);
 		System.out.println("Checking");
 		kieSession.fireAllRules();

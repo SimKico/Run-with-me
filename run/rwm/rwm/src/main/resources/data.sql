@@ -1,8 +1,3 @@
-insert into authority (role) values ('ROLE_ADMIN');
-insert into authority (role) values ('ROLE_REGISTERED_USER');
-insert into authority (role) values ('ROLE_INSTRUCTOR');
-
-insert into users (type, email, password, verified) values ('admin','admin@gmail.com','$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO' ,true);
-
-insert into users_authority (user_id, authority_id) values (1, 1);
+insert into users (id, name, surname, email, verified,username, password,userRole,training_plan,runner_data)
+ values (1, 'Petar','Petrovic', 'admin@gmail.com',true,'admin', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO' ,'ROLE_ADMIN',null,null);
 

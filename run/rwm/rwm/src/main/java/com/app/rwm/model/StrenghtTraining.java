@@ -7,19 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.app.rwm.enums.MUSCLES_GROUP;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class StrenghtTraining {
     @Id
@@ -30,4 +20,39 @@ public class StrenghtTraining {
     
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private TrainingPlan trainingPlan;
+
+	public StrenghtTraining() {
+		super();
+	}
+
+	public StrenghtTraining(Long id, MUSCLES_GROUP musclesGroup, TrainingPlan trainingPlan) {
+		super();
+		this.id = id;
+		this.musclesGroup = musclesGroup;
+		this.trainingPlan = trainingPlan;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public MUSCLES_GROUP getMusclesGroup() {
+		return musclesGroup;
+	}
+
+	public void setMusclesGroup(MUSCLES_GROUP musclesGroup) {
+		this.musclesGroup = musclesGroup;
+	}
+
+	public TrainingPlan getTrainingPlan() {
+		return trainingPlan;
+	}
+
+	public void setTrainingPlan(TrainingPlan trainingPlan) {
+		this.trainingPlan = trainingPlan;
+	}
 }
