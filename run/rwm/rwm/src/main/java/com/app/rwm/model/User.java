@@ -40,11 +40,11 @@ public class User
 	private USER_ROLE userRole;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "training_plan_id", referencedColumnName = "id")
+	@JoinColumn(name = "training_plan", referencedColumnName = "id")
 	private TrainingPlan trainingPlan;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "runner_data_id", referencedColumnName = "id")
+	@JoinColumn(name = "runner_data", referencedColumnName = "id")
 	private RunnerData runnerData;
 	
 	public User() {

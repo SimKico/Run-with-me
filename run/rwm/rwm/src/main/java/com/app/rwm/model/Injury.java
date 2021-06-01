@@ -27,6 +27,9 @@ public class Injury {
 	 private INJURY_TYPE injuryType;
 	 private InjuryCategory injuryCategory;
 	 
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	private RunnerData runnerData;
+	 
 	 public Injury(INJURY_TYPE injuryType) {
 		super();
 		this.injuryType = injuryType;
@@ -46,6 +49,26 @@ public class Injury {
 		super();
 		this.dateOfInjury = dateOfInjury;
 		this.injuryType = injuryType;
+	}
+	
+
+	public Injury(Long id, Date dateOfInjury, INJURY_TYPE injuryType, InjuryCategory injuryCategory,
+			RunnerData runnerData) {
+		super();
+		this.id = id;
+		this.dateOfInjury = dateOfInjury;
+		this.injuryType = injuryType;
+		this.injuryCategory = injuryCategory;
+		this.runnerData = runnerData;
+	}
+	
+
+	public RunnerData getRunnerData() {
+		return runnerData;
+	}
+
+	public void setRunnerData(RunnerData runnerData) {
+		this.runnerData = runnerData;
 	}
 
 	public Long getId() {

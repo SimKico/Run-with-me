@@ -12,8 +12,6 @@ import com.app.rwm.enums.GENDER;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 import com.app.rwm.enums.TIME_GOAL;
 
-import lombok.*;
-
 public class RunnerDataDTO {
 	private Long id;
 

@@ -11,12 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.app.rwm.enums.GENDER;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 import com.app.rwm.enums.TIME_GOAL;
 
 @Entity
+@Table(name = "runner_data")
 public class RunnerData {
 
     @Id
@@ -33,15 +35,15 @@ public class RunnerData {
     
 	private PHYSICAL_FITNESS physicalFitness;
 
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Injury> injury;
+    @OneToMany(mappedBy = "runnerData", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Injury> injury = new HashSet<Injury>();
 
 	public RunnerData() {
 		super();
 	}
 
 	public RunnerData(Long id, int years, double height, double weight, GENDER gender, PHYSICAL_FITNESS physicalFitness,
-			List<Injury> injury, boolean plannerTaken, int distance) {
+	 boolean plannerTaken, int distance) {
 		super();
 		this.id = id;
 		this.years = years;
@@ -49,9 +51,39 @@ public class RunnerData {
 		this.weight = weight;
 		this.gender = gender;
 		this.physicalFitness = physicalFitness;
-		this.injury = injury;
+//		this.injury = injury;
 		this.plannerTaken = plannerTaken;
 		this.distance = distance;
+	}
+
+	public RunnerData(int years2, double height2, double weight2, GENDER gender2) {
+		this.years = years2;
+		this.height = height2;
+		this.weight = weight2;
+		this.gender = gender2;
+	}
+
+	public RunnerData(Long id, int years, double height, double weight, GENDER gender, int distance,
+			boolean plannerTaken, PHYSICAL_FITNESS physicalFitness, Set<Injury> injuries) {
+		super();
+		this.id = id;
+		this.years = years;
+		this.height = height;
+		this.weight = weight;
+		this.gender = gender;
+		this.distance = distance;
+		this.plannerTaken = plannerTaken;
+		this.physicalFitness = physicalFitness;
+		this.injury = injuries;
+	}
+	
+
+	public Set<Injury> getInjury() {
+		return injury;
+	}
+
+	public void setInjury(Set<Injury> injuries) {
+		this.injury = injuries;
 	}
 
 	public Long getId() {
@@ -102,13 +134,13 @@ public class RunnerData {
 		this.physicalFitness = physicalFitness;
 	}
 
-	public List<Injury> getInjury() {
-		return injury;
-	}
-
-	public void setInjury(List<Injury> injury) {
-		this.injury = injury;
-	}
+//	public List<Injury> getInjury() {
+//		return injury;
+//	}
+//
+//	public void setInjury(List<Injury> injury) {
+//		this.injury = injury;
+//	}
 
 	public boolean isPlannerTaken() {
 		return plannerTaken;

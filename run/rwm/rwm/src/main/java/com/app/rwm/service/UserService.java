@@ -28,12 +28,16 @@ public class UserService {
 	}
 
 	public User findOneByUsername(String name) {
-		return userRepository.findByUsername(name).orElseThrow(null);
+		return userRepository.findByUsername(name);
 	}
 
 	public User updateRunnerData(RunnerData userRunnerData, String username) {
-		User userToUpdate = userRepository.findByUsername(username).orElseThrow(null);
+		System.out.println("updateRunnerData1" + userRunnerData.getId() + username);
+		User userToUpdate = userRepository.findByEmail("s.snjezana@gmail.com");
+		System.out.println("updateRunnerData2" + userToUpdate);
+		System.out.println("updateRunnerData2" + userToUpdate.getId() + userToUpdate.getUsername());
 		userToUpdate.setRunnerData(userRunnerData);
+		System.out.println("updateRunnerData3");
 		return userRepository.save(userToUpdate);
 	}
 	

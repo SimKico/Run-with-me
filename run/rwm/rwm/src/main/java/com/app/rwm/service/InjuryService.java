@@ -55,8 +55,9 @@ public class InjuryService {
 		System.out.println("Checking");
 //		KieSession kieSession = kieContainer.newKieSession("test-session");
 //		System.out.println("Checking" + kieSession);
+		kieSession.getAgenda().getAgendaGroup("Injury").setFocus();
 		kieSession.insert(injury);
-		System.out.println("Checking");
+		System.out.println("kieSession" + kieSession);
 		kieSession.fireAllRules();
 		System.out.println("Rules");
 		kieSession.dispose();

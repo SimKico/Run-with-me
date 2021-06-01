@@ -16,6 +16,6 @@ public class RunnerDataMapper {
 	
 	public static RunnerData toRunnerData(RunnerDataDTO runnerDataDTO) {
 		return new RunnerData(runnerDataDTO.getId(), runnerDataDTO.getYears(), runnerDataDTO.getHeight(), runnerDataDTO.getWeight(),
-				runnerDataDTO.getGender(), runnerDataDTO.getPhysicalFitness(), null, false, runnerDataDTO.getDistance());
+				runnerDataDTO.getGender(), runnerDataDTO.getPhysicalFitness(), false, runnerDataDTO.getDistance());
 	}
 }

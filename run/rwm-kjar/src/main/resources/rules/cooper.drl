@@ -4,7 +4,7 @@ import com.app.rwm.model.RunnerData;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 
 rule "Cooper"
-	agenda-droup "cooper"
+	agenda-group "cooper"
 	salience 100
 	when
 		$r : RunnerData(distance == 1500)

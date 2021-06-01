@@ -1,0 +1,13 @@
+package com.main
+
+import com.app.rwm.model.Injury;
+import com.app.rwm.enums.INJURY_TYPE;
+
+rule "Injury"
+	when 
+		$i : Injury(injuryType == INJURY_TYPE.BROKEN_LEG, injuryCategory == InjuryCategory.NA )
+    then
+    	System.out.println(injuryCategory);
+        $i.setInjuryCategory(Injury.InjuryCategory.SEVERE_INJURY);
+        update($i);
+end
