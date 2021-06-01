@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.rwm.dto.BasicRunnerDataDTO;
+import com.app.rwm.dto.CooperDTO;
 import com.app.rwm.dto.RunnerDataDTO;
 import com.app.rwm.mappers.BasicRunnerDataMapper;
 import com.app.rwm.mappers.RunnerDataMapper;
@@ -46,11 +48,12 @@ public class RunnerDataController {
 		 return new ResponseEntity<>(runnerData.getId(), HttpStatus.OK);
 	}
 	
-	@PostMapping(path = "/cooper", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Long> addCooper(@RequestBody int distance){
+	@PutMapping(path = "/cooper", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RunnerDataDTO> addCooper(@RequestBody CooperDTO distance){
+		System.out.println("distance " + distance.getDistance());
 		User user = userService.findOneByUsername("user1");
-		runnerDataService.calculateRunnerFitness(distance, user);
-		 return new ResponseEntity<>(user.getId(), HttpStatus.OK);
+		RunnerData runnerData = runnerDataService.calculateRunnerFitness(distance.getDistance(), user);
+		 return new ResponseEntity<>(RunnerDataMapper.toDTO(runnerData), HttpStatus.OK);
 	}
 	
 	

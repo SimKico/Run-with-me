@@ -49,15 +49,24 @@ public class RunnerDataService {
 		return userRunnerData;
 	}
 
-	public void calculateRunnerFitness(int distance, User user) {
-		RunnerData runnerData = findById(user.getRunnerData().getId());
+	public RunnerData calculateRunnerFitness(int distance, User user) {
+		System.out.println("calculate RUnner Fitness" + distance + user);
+		RunnerData runnerData = user.getRunnerData();
 		runnerData.setDistance(distance);
+		System.out.println("distance" + runnerData.getDistance());
 		runnerDataRepository.save(runnerData);
+
+		System.out.println("distance after save" + runnerData.getDistance());
 		kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
 		kieSession.insert(runnerData);
-		
 		kieSession.fireAllRules();
+		System.out.println("distance after rules" + runnerData.getDistance());
+		System.out.println("physical fitness" + runnerData.getPhysicalFitness());
+		runnerDataRepository.save(runnerData);
+
+		System.out.println("after save physical fitness" + runnerData.getPhysicalFitness());
 //		kieSession.dispose();
+		return runnerData;
 	}
 
 	

@@ -3,12 +3,24 @@ package com.main
 import com.app.rwm.model.Injury;
 import com.app.rwm.enums.INJURY_TYPE;
 
-rule "Injury"
+rule "Injury severe"
 	agenda-group "injury"
 	when 
 		$i : Injury(injuryType == INJURY_TYPE.BROKEN_LEG, injuryCategory == InjuryCategory.NA )
     then
-    	System.out.println("Normal");
+    	System.out.println("SEVERE_INJURY and cancel preparation");
         $i.setInjuryCategory(Injury.InjuryCategory.SEVERE_INJURY);
         update($i);
 end
+
+rule "Injury minor"
+	agenda-group "injury"
+	when 
+		$i : Injury(injuryType == INJURY_TYPE.KNEE_PAIN || injuryType == INJURY_TYPE.ACHILLES_TENDINITIS, injuryCategory == InjuryCategory.NA )
+    then
+    	System.out.println("Normal");
+        $i.setInjuryCategory(Injury.InjuryCategory.MINOR_INJURY);
+        update($i);
+end
+
+
