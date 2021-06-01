@@ -14,16 +14,21 @@ public class KieConfig {
 
     @Bean
     public KieContainer kieContainer(KieServices kieServices) {
+
+        System.out.println("kieContainer start ");
         KieContainer kieContainer = kieServices
                 .newKieContainer(kieServices.newReleaseId("com.app.rwm", "rwm-kjar", "1.0.0-SNAPSHOT"));
         KieScanner kieScanner = kieServices.newKieScanner(kieContainer);
         kieScanner.start(10_000);
+        System.out.println("kieContainer end");
         return kieContainer;
     }
 
     @Bean
     public KieSession kieSession(KieContainer kieContainer) {
         KieSession kieSession = kieContainer.newKieSession("test-session");
+
+        System.out.println("kieSession new");
         return kieSession;
     }
 

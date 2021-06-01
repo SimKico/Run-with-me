@@ -40,7 +40,7 @@ export class DashboardHomeComponent implements OnInit {
   selected = new FormControl(this.injury);
   send(injury:string): Observable<any> {
     console.log(this.injury);
-    return this.http.get('http://localhost:8080/injuries/get/BROKEN_LEG')
+    return this.http.get('http://localhost:8080/injuries/get/{BROKEN_LEG}')
     .pipe(map((response) => {console.log("response")}));
 
   }

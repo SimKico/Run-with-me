@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import com.app.rwm.enums.INTENSITY;
 import com.app.rwm.enums.LEVEL;
 import com.app.rwm.enums.PREPARATION_TIME;
+import com.app.rwm.enums.TIME_GOAL;
 
 @Entity
 public class TrainingPlan {
@@ -25,6 +26,7 @@ public class TrainingPlan {
     
 	private Date raceDate;
 	private String raceLocation;
+	private TIME_GOAL timeGoal;
 	
 	private boolean canceledPreparation;
 
@@ -48,7 +50,7 @@ public class TrainingPlan {
 	public TrainingPlan(Long id, Date raceDate, String raceLocation, boolean canceledPreparation,
 			INTENSITY intensityLevel, LEVEL level, PREPARATION_TIME preparationTime,
 			Set<IntervalTraining> intervalTraining, Set<StrenghtTraining> strenghtTraining,
-			Set<DistanceTraining> distanceTraining) {
+			Set<DistanceTraining> distanceTraining, TIME_GOAL timeGoal) {
 		super();
 		this.id = id;
 		this.raceDate = raceDate;
@@ -60,6 +62,13 @@ public class TrainingPlan {
 		this.intervalTraining = intervalTraining;
 		this.strenghtTraining = strenghtTraining;
 		this.distanceTraining = distanceTraining;
+		this.setTimeGoal(timeGoal);
+	}
+
+	public TrainingPlan(Date raceDate, String raceLocation, TIME_GOAL timeGoal) {
+		this.raceDate = raceDate;
+		this.raceLocation = raceLocation;
+		this.setTimeGoal(timeGoal);
 	}
 
 	public Long getId() {
@@ -140,5 +149,13 @@ public class TrainingPlan {
 
 	public void setDistanceTraining(Set<DistanceTraining> distanceTraining) {
 		this.distanceTraining = distanceTraining;
+	}
+
+	public TIME_GOAL getTimeGoal() {
+		return timeGoal;
+	}
+
+	public void setTimeGoal(TIME_GOAL timeGoal) {
+		this.timeGoal = timeGoal;
 	}
 }

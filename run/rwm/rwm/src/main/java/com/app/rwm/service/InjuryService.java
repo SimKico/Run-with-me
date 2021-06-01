@@ -7,11 +7,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.rwm.model.Injury;
-
-import org.springframework.stereotype.Service;
+import com.app.rwm.repository.InjuryRepository;
+import com.app.rwm.repository.RunnerDataRepository;
 
 @Service
 public class InjuryService {
+
+//	
+//	private final InjuryRepository injuryRepository;
+//	private final UserService userService;
+//    private final KieContainer kieContainer;
+//	
+//	@Autowired
+//	public InjuryService(InjuryRepository injuryRepository, UserService userService,  KieContainer kieContainer) {
+//		this.injuryRepository = injuryRepository;
+//		this.userService = userService;
+//		this.kieContainer = kieContainer;
+//	}
+//	
+//	public Injury addInjury(Injury injury) {
+//		KieSession kieSession = kieContainer.newKieSession("test-session");
+//		kieSession.getAgenda().getAgendaGroup("test").setFocus();
+//		System.out.println("Checking" + kieSession);
+//		kieSession.insert(injury);
+//		System.out.println("Checking");
+//		kieSession.fireAllRules();
+//		System.out.println("Rules");
+//		kieSession.dispose();
+//		
+//		injury = injuryRepository.save(injury);
+//		return injury;
+//	}
 
 	private static final Logger log = LoggerFactory.getLogger(InjuryService.class);
 	

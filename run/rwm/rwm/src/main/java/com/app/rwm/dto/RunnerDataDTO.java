@@ -28,11 +28,11 @@ public class RunnerDataDTO {
 //    @NotNull(message = "Weight can not be null")
 //    @Min(value = 0, message = "Weight min is {value}")
     private double weight;
+    private int distance;
     
     private GENDER gender;
     
 	private PHYSICAL_FITNESS physicalFitness;
-	private TIME_GOAL timeGoal;
 	
 	private Collection<InjuryDTO> injuryDTO;
 
@@ -41,7 +41,7 @@ public class RunnerDataDTO {
 	}
 
 	public RunnerDataDTO(Long id, int years, double height, double weight, GENDER gender,
-			PHYSICAL_FITNESS physicalFitness, TIME_GOAL timeGoal, Collection<InjuryDTO> injuryDTO) {
+			PHYSICAL_FITNESS physicalFitness, Collection<InjuryDTO> injuryDTO, int distance) {
 		super();
 		this.id = id;
 		this.years = years;
@@ -49,8 +49,8 @@ public class RunnerDataDTO {
 		this.weight = weight;
 		this.gender = gender;
 		this.physicalFitness = physicalFitness;
-		this.timeGoal = timeGoal;
 		this.injuryDTO = injuryDTO;
+		this.distance = distance;
 	}
 
 	public Long getId() {
@@ -101,20 +101,20 @@ public class RunnerDataDTO {
 		this.physicalFitness = physicalFitness;
 	}
 
-	public TIME_GOAL getTimeGoal() {
-		return timeGoal;
-	}
-
-	public void setTimeGoal(TIME_GOAL timeGoal) {
-		this.timeGoal = timeGoal;
-	}
-
 	public Collection<InjuryDTO> getInjuryDTO() {
 		return injuryDTO;
 	}
 
 	public void setInjuryDTO(Collection<InjuryDTO> injuryDTO) {
 		this.injuryDTO = injuryDTO;
+	}
+
+	public int getDistance() {
+		return distance;
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
 	}
 
  

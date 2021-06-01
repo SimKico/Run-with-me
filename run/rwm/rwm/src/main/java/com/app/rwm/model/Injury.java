@@ -36,19 +36,14 @@ public class Injury {
 		super();
 	}
 
-	public Injury(Long id, RunnerData runnerData, Date dateOfInjury, INJURY_TYPE injuryType,
-			InjuryCategory injuryCategory) {
+	public Injury(Long id, Date dateOfInjury, INJURY_TYPE injuryType) {
 		super();
 		this.id = id;
 		this.dateOfInjury = dateOfInjury;
 		this.injuryType = injuryType;
-		this.injuryCategory = injuryCategory;
 	}
-	
-
-	public Injury(Long id, Date dateOfInjury, INJURY_TYPE injuryType) {
+	public Injury(Date dateOfInjury, INJURY_TYPE injuryType) {
 		super();
-		this.id = id;
 		this.dateOfInjury = dateOfInjury;
 		this.injuryType = injuryType;
 	}

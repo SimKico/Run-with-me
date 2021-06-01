@@ -27,13 +27,13 @@ public class RunnerData {
 	private double height;
     private double weight;
     private GENDER gender;
+    private int distance; //for COOPER
     
     private boolean plannerTaken;
     
 	private PHYSICAL_FITNESS physicalFitness;
-	private TIME_GOAL timeGoal;
-	
-    @OneToMany( cascade = CascadeType.ALL)
+
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Injury> injury;
 
 	public RunnerData() {
@@ -41,7 +41,7 @@ public class RunnerData {
 	}
 
 	public RunnerData(Long id, int years, double height, double weight, GENDER gender, PHYSICAL_FITNESS physicalFitness,
-			TIME_GOAL timeGoal, List<Injury> injury, boolean plannerTaken) {
+			List<Injury> injury, boolean plannerTaken, int distance) {
 		super();
 		this.id = id;
 		this.years = years;
@@ -49,9 +49,9 @@ public class RunnerData {
 		this.weight = weight;
 		this.gender = gender;
 		this.physicalFitness = physicalFitness;
-		this.timeGoal = timeGoal;
 		this.injury = injury;
 		this.plannerTaken = plannerTaken;
+		this.distance = distance;
 	}
 
 	public Long getId() {
@@ -102,14 +102,6 @@ public class RunnerData {
 		this.physicalFitness = physicalFitness;
 	}
 
-	public TIME_GOAL getTimeGoal() {
-		return timeGoal;
-	}
-
-	public void setTimeGoal(TIME_GOAL timeGoal) {
-		this.timeGoal = timeGoal;
-	}
-
 	public List<Injury> getInjury() {
 		return injury;
 	}
@@ -126,8 +118,11 @@ public class RunnerData {
 		this.plannerTaken = plannerTaken;
 	}
 
+	public int getDistance() {
+		return distance;
+	}
 
-
-	
-
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 }

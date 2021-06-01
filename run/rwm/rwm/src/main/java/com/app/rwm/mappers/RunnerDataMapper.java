@@ -11,12 +11,11 @@ public class RunnerDataMapper {
 	public static RunnerDataDTO toDTO(RunnerData runnerData) {
 		Collection<InjuryDTO> injuries;
 		return new RunnerDataDTO(runnerData.getId(),runnerData.getYears(), runnerData.getHeight(),runnerData.getWeight(),
-				runnerData.getGender(),runnerData.getPhysicalFitness(),
-				runnerData.getTimeGoal(), null);
+				runnerData.getGender(),runnerData.getPhysicalFitness(), null, runnerData.getDistance());
 	}
 	
 	public static RunnerData toRunnerData(RunnerDataDTO runnerDataDTO) {
 		return new RunnerData(runnerDataDTO.getId(), runnerDataDTO.getYears(), runnerDataDTO.getHeight(), runnerDataDTO.getWeight(),
-				runnerDataDTO.getGender(), runnerDataDTO.getPhysicalFitness(), runnerDataDTO.getTimeGoal(), null, false);
+				runnerDataDTO.getGender(), runnerDataDTO.getPhysicalFitness(), null, false, runnerDataDTO.getDistance());
 	}
 }

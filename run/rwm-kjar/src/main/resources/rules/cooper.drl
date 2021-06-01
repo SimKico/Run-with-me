@@ -1,0 +1,17 @@
+package com.main
+ 
+import com.app.rwm.model.RunnerData;
+import com.app.rwm.enums.PHYSICAL_FITNESS;
+
+rule "Cooper"
+	agenda-droup "cooper"
+	salience 100
+	when
+		$r : RunnerData(distance == 1500)
+	then
+		System.out.println("hello");
+		$r.setPhysicalFitness(PHYSICAL_FITNESS.GOOD);
+		update($r);
+	end
+	
+		
