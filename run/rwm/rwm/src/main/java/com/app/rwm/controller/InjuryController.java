@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.rwm.dto.InjuryDTO;
 import com.app.rwm.enums.INJURY_TYPE;
 import com.app.rwm.model.Injury;
 import com.app.rwm.model.RunnerData;
@@ -23,22 +24,22 @@ import com.app.rwm.service.InjuryService;
 import com.app.rwm.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins= "http://localhost:4200/*")
 @RequestMapping(value = "/injuries", produces = MediaType.APPLICATION_JSON_VALUE)
 public class InjuryController{
 
 	@Autowired
 	private InjuryService injuryService;
 	
-	@RequestMapping(value = "/get/{injury}", method = RequestMethod.GET)
-	 public ResponseEntity<?> isCancelingPreparation(@PathVariable("injury") String injury) {
-		System.out.println("injury"+ injury);
-		INJURY_TYPE t = INJURY_TYPE.valueOf(injury);
-		Injury i = new Injury(t);
-		System.out.println("injury"+ i);
+	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public ResponseEntity<Injury> isCancelingPreparation(@RequestBody InjuryDTO injury) {
+		System.out.println("injury"+ injury.getInjuryType());
+		Injury i = new Injury(injury.getDateOfInjury(),injury.getInjuryType(), Injury.InjuryCategory.NA);
+		
+		System.out.println("injury"+ i.getInjuryCategory());
 		Injury i2 = injuryService.isCanceledPreparation(i);
 		System.out.println("i2"+ i2);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<Injury>(i2,HttpStatus.OK);
 	
     }
 //	

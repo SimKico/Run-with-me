@@ -57,7 +57,7 @@ public class RunnerDataService {
 		kieSession.insert(runnerData);
 		
 		kieSession.fireAllRules();
-		kieSession.dispose();
+//		kieSession.dispose();
 	}
 
 	

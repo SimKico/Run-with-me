@@ -40,13 +40,14 @@ public class InjuryService {
 //	}
 
 	private static final Logger log = LoggerFactory.getLogger(InjuryService.class);
-	
+	private final InjuryRepository injuryRepository;
 	@Autowired
 	private KieSession kieSession;
 
 	@Autowired
-	public InjuryService(KieSession kieSession) {
+	public InjuryService(KieSession kieSession, InjuryRepository injuryRepository) {
 		System.out.println("Checking");
+		this.injuryRepository = injuryRepository;
 		log.info("Initialising a new example session.");
 		this.kieSession = kieSession;
 	}
@@ -55,12 +56,16 @@ public class InjuryService {
 		System.out.println("Checking");
 //		KieSession kieSession = kieContainer.newKieSession("test-session");
 //		System.out.println("Checking" + kieSession);
-		kieSession.getAgenda().getAgendaGroup("Injury").setFocus();
+		kieSession.getAgenda().getAgendaGroup("injury").setFocus();
 		kieSession.insert(injury);
 		System.out.println("kieSession" + kieSession);
 		kieSession.fireAllRules();
-		System.out.println("Rules");
-		kieSession.dispose();
+		System.out.println("Rules done and now dispose");
+//		kieSession.dispose();
+		System.out.println(injury.getInjuryCategory());
+		System.out.println("try save");
+		injury = injuryRepository.save(injury);
+		System.out.println(injury.getInjuryCategory());
 		return injury;
 		
 	}

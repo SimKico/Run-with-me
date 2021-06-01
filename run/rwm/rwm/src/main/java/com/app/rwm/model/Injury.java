@@ -63,6 +63,12 @@ public class Injury {
 	}
 	
 
+	public Injury(Date dateOfInjury2, INJURY_TYPE injuryType2, InjuryCategory na) {
+		this.dateOfInjury = dateOfInjury2;
+		this.injuryType = injuryType2;
+		this.injuryCategory = na;
+	}
+
 	public RunnerData getRunnerData() {
 		return runnerData;
 	}

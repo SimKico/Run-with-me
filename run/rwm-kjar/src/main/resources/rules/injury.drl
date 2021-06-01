@@ -4,10 +4,11 @@ import com.app.rwm.model.Injury;
 import com.app.rwm.enums.INJURY_TYPE;
 
 rule "Injury"
+	agenda-group "injury"
 	when 
 		$i : Injury(injuryType == INJURY_TYPE.BROKEN_LEG, injuryCategory == InjuryCategory.NA )
     then
-    	System.out.println(injuryCategory);
+    	System.out.println("Normal");
         $i.setInjuryCategory(Injury.InjuryCategory.SEVERE_INJURY);
         update($i);
 end

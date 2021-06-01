@@ -8,6 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { InjuryService } from 'src/app/core/services/injury.service';
+import { Injury } from 'src/app/core/model/injury';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -24,7 +26,9 @@ export class DashboardHomeComponent implements OnInit {
     private authService: AuthenticationService,
     private titleService: Title,
     private logger: NGXLogger,
+    private injuryService : InjuryService,
     private http: HttpClient) {
+
   }
 
   ngOnInit() {
@@ -38,10 +42,14 @@ export class DashboardHomeComponent implements OnInit {
  
   }
   selected = new FormControl(this.injury);
-  send(injury:string): Observable<any> {
+  
+  addInjury(injury:string): void {
     console.log(this.injury);
-    return this.http.get('http://localhost:8080/injuries/get/{BROKEN_LEG}')
-    .pipe(map((response) => {console.log("response")}));
-
+    const selectedInjury = new Injury(new Date(), this.injury, 2);
+   
+    this.injuryService.addInjury(selectedInjury);
+    // .subscribe(addedInjury =>{
+    //   console.log(addedInjury);
+    // })
   }
 }
