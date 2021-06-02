@@ -1,6 +1,7 @@
 package com.main
 
 import com.app.rwm.model.Injury;
+import com.app.rwm.model.TrainingPlan;
 import com.app.rwm.enums.INJURY_TYPE;
 
 rule "Injury severe"
@@ -13,6 +14,19 @@ rule "Injury severe"
         update($i);
 end
 
+// uraditi kategoriju p2 za vise od dvije povrede tipa p1 - accumulate
+
+rule "Cancel preparation if severe injury"
+	agenda-group "injury"
+	when
+		$i: Injury(injuryCategory == InjuryCategory.SEVERE_INJURY)
+		$p: TrainingPlan()
+	then
+		System.out.println("Cancel the preparation");
+		modify($p){setCanceledPreparation(true);}
+end
+// Uraditi Cancel preparation za jos 6 tacaka
+
 rule "Injury minor"
 	agenda-group "injury"
 	when 
@@ -22,5 +36,6 @@ rule "Injury minor"
         $i.setInjuryCategory(Injury.InjuryCategory.MINOR_INJURY);
         update($i);
 end
+
 
 

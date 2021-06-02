@@ -1,5 +1,7 @@
 package com.app.rwm.dto;
 
+import java.util.Collection;
+
 import com.app.rwm.enums.GENDER;
 
 public class BasicRunnerDataDTO {
@@ -16,10 +18,12 @@ public class BasicRunnerDataDTO {
   private double weight;
   
   private GENDER gender;
+  
+  private Collection<InjuryDTO> injuries;
 
-public BasicRunnerDataDTO() {
-	super();
-}
+	public BasicRunnerDataDTO() {
+		super();
+	}
 
 public BasicRunnerDataDTO(int years, double height, double weight, GENDER gender) {
 	super();
@@ -27,6 +31,26 @@ public BasicRunnerDataDTO(int years, double height, double weight, GENDER gender
 	this.height = height;
 	this.weight = weight;
 	this.gender = gender;
+}
+
+
+public BasicRunnerDataDTO(int years, double height, double weight, GENDER gender, Collection<InjuryDTO> injuries) {
+	super();
+	this.years = years;
+	this.height = height;
+	this.weight = weight;
+	this.gender = gender;
+	this.injuries = injuries;
+}
+
+
+
+public Collection<InjuryDTO> getInjuries() {
+	return injuries;
+}
+
+public void setInjuries(Collection<InjuryDTO> injuries) {
+	this.injuries = injuries;
 }
 
 public int getYears() {

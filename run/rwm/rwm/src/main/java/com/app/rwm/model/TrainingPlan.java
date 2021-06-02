@@ -1,5 +1,6 @@
 package com.app.rwm.model;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class TrainingPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-	private Date raceDate;
+	private Instant raceDate;
 	private String raceLocation;
 	private TIME_GOAL timeGoal;
 	
@@ -47,7 +48,7 @@ public class TrainingPlan {
 		super();
 	}
 
-	public TrainingPlan(Long id, Date raceDate, String raceLocation, boolean canceledPreparation,
+	public TrainingPlan(Long id, Instant raceDate, String raceLocation, boolean canceledPreparation,
 			INTENSITY intensityLevel, LEVEL level, PREPARATION_TIME preparationTime,
 			Set<IntervalTraining> intervalTraining, Set<StrenghtTraining> strenghtTraining,
 			Set<DistanceTraining> distanceTraining, TIME_GOAL timeGoal) {
@@ -65,7 +66,7 @@ public class TrainingPlan {
 		this.setTimeGoal(timeGoal);
 	}
 
-	public TrainingPlan(Date raceDate, String raceLocation, TIME_GOAL timeGoal) {
+	public TrainingPlan(Instant raceDate, String raceLocation, TIME_GOAL timeGoal) {
 		this.raceDate = raceDate;
 		this.raceLocation = raceLocation;
 		this.setTimeGoal(timeGoal);
@@ -79,11 +80,11 @@ public class TrainingPlan {
 		this.id = id;
 	}
 
-	public Date getRaceDate() {
+	public Instant getRaceDate() {
 		return raceDate;
 	}
 
-	public void setRaceDate(Date raceDate) {
+	public void setRaceDate(Instant raceDate) {
 		this.raceDate = raceDate;
 	}
 

@@ -1,0 +1,57 @@
+package com.main
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
+import com.app.rwm.model.TrainingPlan;
+import com.app.rwm.model.RunnerData;
+import com.app.rwm.enums.PREPARATION_TIME;
+
+
+rule "Time less than 8 weeks, cancel preparation"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 56, canceledPreparation == false)
+	then
+		System.out.println("Dana ima malo");
+		modify($t){setCanceledPreparation(true);}
+end
+
+rule "Time 8 to 12 weeks"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 56 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 84, preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+	then
+		System.out.println("Time 8 to 12 weeks");
+		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_8_TO_12);}
+end
+
+rule "Time 13 to 16 weeks"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 85 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 112,  preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+	then
+		System.out.println("Time 13 to 16 weeks");
+		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_13_TO_16);}
+end
+
+rule "Time 17 to 24 weeks"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 113 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 168,  preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+	then
+		System.out.println("Time 17 to 24 weeks");
+		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_17_TO_24);}
+end
+
+rule "Time more than 24 weeks"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 169,  preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+	then
+		System.out.println("Time more than 24 weeks (more than 6 months)");
+		modify($t){setPreparationTime(PREPARATION_TIME.MORE_THAN_24);}
+end
+
+
+

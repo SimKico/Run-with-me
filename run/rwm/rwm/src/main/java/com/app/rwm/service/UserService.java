@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.rwm.model.RunnerData;
+import com.app.rwm.model.TrainingPlan;
 import com.app.rwm.model.User;
 import com.app.rwm.repository.UserRepository;
 
@@ -39,6 +40,12 @@ public class UserService {
 		userToUpdate.setRunnerData(userRunnerData);
 		System.out.println("updateRunnerData3");
 		return userRepository.save(userToUpdate);
+	}
+
+	public User updateTrainingPlan(TrainingPlan trainingPlan, User user) {
+		user.setTrainingPlan(trainingPlan);
+		return userRepository.save(user);
+
 	}
 	
 }

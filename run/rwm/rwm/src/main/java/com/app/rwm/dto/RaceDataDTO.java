@@ -1,27 +1,28 @@
 package com.app.rwm.dto;
 
+import java.time.Instant;
 import java.util.Date;
 
 import com.app.rwm.enums.TIME_GOAL;
 
 public class RaceDataDTO {
 
-	private Date raceDate;
+	private Instant raceDate;
 	private String raceLocation;
 	private TIME_GOAL timeGoal;
 	public RaceDataDTO() {
 		super();
 	}
-	public RaceDataDTO(Date raceDate, String raceLocation, TIME_GOAL timeGoal) {
+	public RaceDataDTO(Instant raceDate, String raceLocation, TIME_GOAL timeGoal) {
 		super();
 		this.raceDate = raceDate;
 		this.raceLocation = raceLocation;
 		this.timeGoal = timeGoal;
 	}
-	public Date getRaceDate() {
+	public Instant getRaceDate() {
 		return raceDate;
 	}
-	public void setRaceDate(Date raceDate) {
+	public void setRaceDate(Instant raceDate) {
 		this.raceDate = raceDate;
 	}
 	public String getRaceLocation() {

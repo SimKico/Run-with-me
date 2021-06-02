@@ -30,12 +30,14 @@ public class TrainingPlanController {
 	
 	
 	@PostMapping(path = "/data", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity addRaceData(@RequestBody RaceDataDTO raceDataDTO){
-//		User user = userService.findOneByUsername("user1");
-		TrainingPlan trainingPlan = trainingPlanService.addRaceData(raceDataDTO.getRaceDate(), raceDataDTO.getRaceLocation(), raceDataDTO.getTimeGoal());
-		
-		return new ResponseEntity<>(2, HttpStatus.OK);
-		
+	public ResponseEntity<String> addRaceData(@RequestBody RaceDataDTO raceDataDTO){
+		User user = userService.findOneByUsername("user1");
+		TrainingPlan trainingPlan = trainingPlanService.addRaceData(raceDataDTO.getRaceDate(), raceDataDTO.getRaceLocation(), raceDataDTO.getTimeGoal(), user);
+		if(trainingPlan.isCanceledPreparation()) {
+			return new ResponseEntity<>("Premalo vremena za pripremu!", HttpStatus.NOT_ACCEPTABLE);
+		}else {
+			return new ResponseEntity<>("OK", HttpStatus.OK);
+		}
 	}
 	
 }
