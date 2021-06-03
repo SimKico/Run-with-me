@@ -18,14 +18,9 @@ public class Injury {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
-	 
-	 public enum InjuryCategory{
-		 NA, SEVERE_INJURY, MINOR_INJURY
-	 }
 
 	 private Date dateOfInjury;
 	 private INJURY_TYPE injuryType;
-	 private InjuryCategory injuryCategory;
 	 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private RunnerData runnerData;
@@ -45,29 +40,17 @@ public class Injury {
 		this.dateOfInjury = dateOfInjury;
 		this.injuryType = injuryType;
 	}
-	public Injury(Date dateOfInjury, INJURY_TYPE injuryType) {
-		super();
-		this.dateOfInjury = dateOfInjury;
-		this.injuryType = injuryType;
-	}
 	
 
-	public Injury(Long id, Date dateOfInjury, INJURY_TYPE injuryType, InjuryCategory injuryCategory,
+	public Injury( Date dateOfInjury, INJURY_TYPE injuryType,
 			RunnerData runnerData) {
 		super();
-		this.id = id;
 		this.dateOfInjury = dateOfInjury;
 		this.injuryType = injuryType;
-		this.injuryCategory = injuryCategory;
+
 		this.runnerData = runnerData;
 	}
 	
-
-	public Injury(Date dateOfInjury2, INJURY_TYPE injuryType2, InjuryCategory na) {
-		this.dateOfInjury = dateOfInjury2;
-		this.injuryType = injuryType2;
-		this.injuryCategory = na;
-	}
 
 	public RunnerData getRunnerData() {
 		return runnerData;
@@ -102,11 +85,4 @@ public class Injury {
 		this.injuryType = injuryType;
 	}
 
-	public InjuryCategory getInjuryCategory() {
-		return injuryCategory;
-	}
-
-	public void setInjuryCategory(InjuryCategory injuryCategory) {
-		this.injuryCategory = injuryCategory;
-	}
 }

@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.rwm.dto.InjuryDTO;
+import com.app.rwm.dto.RunnerDataDTO;
 import com.app.rwm.enums.INJURY_TYPE;
 import com.app.rwm.model.Injury;
 import com.app.rwm.model.RunnerData;
 import com.app.rwm.model.User;
 import com.app.rwm.service.InjuryService;
+import com.app.rwm.service.RunnerDataService;
 //import com.app.rwm.service.RunnerDataService;
 import com.app.rwm.service.UserService;
 
@@ -31,15 +33,20 @@ public class InjuryController{
 	@Autowired
 	private InjuryService injuryService;
 	
+	@Autowired
+	private RunnerDataService runnerDataService;
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	 public ResponseEntity<Injury> isCancelingPreparation(@RequestBody InjuryDTO injury) {
-		System.out.println("injury"+ injury.getInjuryType());
-		Injury i = new Injury(injury.getDateOfInjury(),injury.getInjuryType(), Injury.InjuryCategory.NA);
+	 public ResponseEntity<RunnerDataDTO> isCancelingPreparation(@RequestBody InjuryDTO injury) {
+		User user = userService.findOneByUsername("user1");
+		System.out.println("Injury add - CONTROLLER" + injury.getInjuryType());
+		RunnerData runnerData = user.getRunnerData();
+		Injury i = new Injury(injury.getDateOfInjury(),injury.getInjuryType(), runnerData);
+		injuryService.addInjury(i, runnerData);
 		
-		System.out.println("injury"+ i.getInjuryCategory());
-		Injury i2 = injuryService.isCanceledPreparation(i);
-		System.out.println("i2"+ i2);
-		return new ResponseEntity<Injury>(i2,HttpStatus.OK);
+		return new ResponseEntity<RunnerDataDTO>(HttpStatus.OK);
 	
     }
 //	

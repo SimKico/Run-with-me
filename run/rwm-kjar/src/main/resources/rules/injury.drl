@@ -3,38 +3,64 @@ package com.main
 import com.app.rwm.model.Injury;
 import com.app.rwm.model.TrainingPlan;
 import com.app.rwm.enums.INJURY_TYPE;
+import com.app.rwm.enums.INJURY_CATEGORY;
 
-rule "Injury severe"
+import java.util.ArrayList;
+
+global ArrayList injuries;
+
+rule "Injury severe broken leg"
 	agenda-group "injury"
 	when 
-		$i : Injury(injuryType == INJURY_TYPE.BROKEN_LEG, injuryCategory == InjuryCategory.NA )
+		$i : Injury(injuryType == INJURY_TYPE.BROKEN_LEG)
+		$r : RunnerData(injuryCategory == INJURY_CATEGORY.NA || injuryCategory == INJURY_CATEGORY.MINOR_INJURY && injuryCategory != INJURY_CATEGORY.SEVERE_INJURY )
     then
     	System.out.println("SEVERE_INJURY and cancel preparation");
-        $i.setInjuryCategory(Injury.InjuryCategory.SEVERE_INJURY);
-        update($i);
+        $r.setInjuryCategory(INJURY_CATEGORY.SEVERE_INJURY);
+        update($r);
 end
 
-// uraditi kategoriju p2 za vise od dvije povrede tipa p1 - accumulate
-
-rule "Cancel preparation if severe injury"
+rule "Injury severe more than 3 injuries"//mozda dodati zadnja tri mjeseca
 	agenda-group "injury"
+	no-loop
+	when 
+		$r : RunnerData($id : id)
+		accumulate (
+			$rd : Injury(
+				  runnerData.getId() == $id ) from injuries,
+				$count: collectList($rd)
+			)
+		eval ($count.size() >= 2)
+	then
+		System.out.println("More injuries");
+        modify($r){setInjuryCategory(INJURY_CATEGORY.SEVERE_INJURY);}
+
+end
+
+
+
+rule "Cancel preparation if severe injury"//dodaj plan
+	agenda-group "injury"
+	lock-on-active
 	when
-		$i: Injury(injuryCategory == InjuryCategory.SEVERE_INJURY)
+		$r: RunnerData(injuryCategory == INJURY_CATEGORY.SEVERE_INJURY)
 		$p: TrainingPlan()
 	then
 		System.out.println("Cancel the preparation");
 		modify($p){setCanceledPreparation(true);}
 end
-// Uraditi Cancel preparation za jos 6 tacaka
 
-rule "Injury minor"
+
+
+rule "Injury minor"//radi
 	agenda-group "injury"
+	lock-on-active
 	when 
-		$i : Injury(injuryType == INJURY_TYPE.KNEE_PAIN || injuryType == INJURY_TYPE.ACHILLES_TENDINITIS, injuryCategory == InjuryCategory.NA )
+		$r : RunnerData(injuryCategory == INJURY_CATEGORY.NA || injuryCategory == INJURY_CATEGORY.MINOR_INJURY )
+		$i : Injury(injuryType == INJURY_TYPE.KNEE_PAIN || injuryType == INJURY_TYPE.ACHILLES_TENDINITIS)
     then
     	System.out.println("Normal");
-        $i.setInjuryCategory(Injury.InjuryCategory.MINOR_INJURY);
-        update($i);
+        modify($r) {setInjuryCategory(INJURY_CATEGORY.MINOR_INJURY);}
 end
 
 

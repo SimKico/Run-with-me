@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.rwm.model.Injury;
+import com.app.rwm.model.RunnerData;
 import com.app.rwm.repository.InjuryRepository;
 import com.app.rwm.repository.RunnerDataRepository;
 
 @Service
 public class InjuryService {
 
+	
+	
 //	
 //	private final InjuryRepository injuryRepository;
 //	private final UserService userService;
@@ -41,32 +44,21 @@ public class InjuryService {
 
 	private static final Logger log = LoggerFactory.getLogger(InjuryService.class);
 	private final InjuryRepository injuryRepository;
+	private final RunnerDataService runnerDataService;
+	
 	@Autowired
 	private KieSession kieSession;
 
 	@Autowired
-	public InjuryService(KieSession kieSession, InjuryRepository injuryRepository) {
+	public InjuryService(KieSession kieSession, InjuryRepository injuryRepository, RunnerDataService runnerDataService) {
 		System.out.println("Checking");
 		this.injuryRepository = injuryRepository;
-		log.info("Initialising a new example session.");
+		this.runnerDataService = runnerDataService;
 		this.kieSession = kieSession;
 	}
-	
-	public Injury isCanceledPreparation(Injury injury) {
-		System.out.println("Checking");
-//		KieSession kieSession = kieContainer.newKieSession("test-session");
-//		System.out.println("Checking" + kieSession);
-		kieSession.getAgenda().getAgendaGroup("injury").setFocus();
-		kieSession.insert(injury);
-		System.out.println("kieSession" + kieSession);
-		kieSession.fireAllRules();
-		System.out.println("Rules done and now dispose");
-//		kieSession.dispose();
-		System.out.println(injury.getInjuryCategory());
-		System.out.println("try save");
-		injury = injuryRepository.save(injury);
-		System.out.println(injury.getInjuryCategory());
-		return injury;
-		
+
+	public RunnerData addInjury(Injury injury, RunnerData runnerData) {
+//		injuryRepository.save(injury);
+		return runnerDataService.addInjury(injury, runnerData);
 	}
 }
