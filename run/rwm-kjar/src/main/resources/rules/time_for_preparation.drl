@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import com.app.rwm.model.TrainingPlan;
 import com.app.rwm.model.RunnerData;
 import com.app.rwm.enums.PREPARATION_TIME;
+import com.app.rwm.enums.TIME_GOAL;
 
 
 rule "Time less than 8 weeks, cancel preparation"
@@ -17,37 +18,66 @@ rule "Time less than 8 weeks, cancel preparation"
 		modify($t){setCanceledPreparation(true);}
 end
 
-rule "Time 8 to 12 weeks"
+rule "Time 8 to 12 weeks excellent"
 	agenda-group "time"
 	when 
 		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 56 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 84, preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.EXCELLENT) 
 	then
 		System.out.println("Time 8 to 12 weeks");
 		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_8_TO_12);}
 end
 
-rule "Time 13 to 16 weeks"
+rule "Time 8 to 12 weeks good"
 	agenda-group "time"
 	when 
-		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 85 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 112,  preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 56 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 84,
+		 preparationTime == null && timeGoal == TIME_GOAL.OVER_1h50m)//56 - 8 weeks, 84 - 12 weeks
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.GOOD) 
+	then
+		System.out.println("Time 8 to 12 weeks");
+		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_8_TO_12);}
+end
+
+rule "Time 13 to 16 weeks good 1h20m"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 85 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 112,
+		  preparationTime == null && timeGoal == TIME_GOAL.BETWEEN_1h20m_AND_1h50m)//56 - 8 weeks, 84 - 12 weeks
+		 $r : RunnerData(physicalFitness == PHYSICAL_FITNESS.GOOD) 
 	then
 		System.out.println("Time 13 to 16 weeks");
 		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_13_TO_16);}
 end
 
-rule "Time 17 to 24 weeks"
+rule "Time 17 to 24 weeks bad 1h50m"
 	agenda-group "time"
 	when 
-		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 113 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 168,  preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 113 && ChronoUnit.DAYS.between(Instant.now(), raceDate) <= 168,
+		  preparationTime == null && timeGoal == TIME_GOAL.OVER_1h50m)//56 - 8 weeks, 84 - 12 weeks
+		 $r : RunnerData(physicalFitness == PHYSICAL_FITNESS.BAD) 
 	then
 		System.out.println("Time 17 to 24 weeks");
 		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_17_TO_24);}
 end
 
-rule "Time more than 24 weeks"
+rule "Time more than 24 weeks good 1h20m"
 	agenda-group "time"
 	when 
-		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 169,  preparationTime == null)//56 - 8 weeks, 84 - 12 weeks
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 169,
+		  preparationTime == null && timeGoal == TIME_GOAL.UNDER_1h20m)//56 - 8 weeks, 84 - 12 weeks
+		 $r : RunnerData(physicalFitness == PHYSICAL_FITNESS.GOOD) 
+	then
+		System.out.println("Time more than 24 weeks (more than 6 months)");
+		modify($t){setPreparationTime(PREPARATION_TIME.MORE_THAN_24);}
+end
+
+rule "Time more than 24 weeks bad 1h20m more"
+	agenda-group "time"
+	when 
+		$t : TrainingPlan(ChronoUnit.DAYS.between(Instant.now(), raceDate) >= 169,
+		  preparationTime == null && timeGoal == TIME_GOAL.BETWEEN_1h20m_AND_1h50m)//56 - 8 weeks, 84 - 12 weeks
+		 $r : RunnerData(physicalFitness == PHYSICAL_FITNESS.BAD) 
 	then
 		System.out.println("Time more than 24 weeks (more than 6 months)");
 		modify($t){setPreparationTime(PREPARATION_TIME.MORE_THAN_24);}
