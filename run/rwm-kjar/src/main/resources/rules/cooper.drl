@@ -56,7 +56,7 @@ rule "physicall fitness cooper average"
 	end
 	
 query average(Long cId, int cDistance, int cYears, GENDER cGender )
-	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > bad && cDistance < average && cGender == gender);
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > bad && cDistance <= average && cGender == gender);
 end
 
 rule "physicall fitness cooper good"
@@ -72,7 +72,7 @@ rule "physicall fitness cooper good"
 	end
 
 query good(Long cId, int cDistance, int cYears, GENDER cGender )
-	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > average && cDistance < good && cGender == gender);
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > average && cDistance <= good && cGender == gender);
 end
 
 rule "physicall fitness cooper excellent"
