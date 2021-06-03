@@ -19,8 +19,8 @@ rule "physicall fitness cooper"
 		veryBad($id, qDistance, qYears, qGender;) 
 	then
 		System.out.println("very bad");
-		modify($r){setCooperResult(COOPER_RESULT.VERY_BAD);}
-		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+		modify($r){setCooperResult(COOPER_RESULT.VERY_BAD),
+					setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
 	end
 	
 query veryBad(Long cId, int cDistance, int cYears, GENDER cGender )
@@ -35,8 +35,8 @@ rule "physicall fitness cooper bad"
 		bad($id, qDistance, qYears, qGender;) 
 	then
 		System.out.println("bad");
-		modify($r){setCooperResult(COOPER_RESULT.BAD);}
-		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+		modify($r){setCooperResult(COOPER_RESULT.BAD),
+					setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
 	end
 	
 query bad(Long cId, int cDistance, int cYears, GENDER cGender )
@@ -51,8 +51,8 @@ rule "physicall fitness cooper average"
 		average($id, qDistance, qYears, qGender;) 
 	then
 		System.out.println("average");
-		modify($r){setCooperResult(COOPER_RESULT.AVERAGE);}
-		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+		modify($r){setCooperResult(COOPER_RESULT.AVERAGE),
+				   setPhysicalFitness(PHYSICAL_FITNESS.GOOD);}
 	end
 	
 query average(Long cId, int cDistance, int cYears, GENDER cGender )
@@ -67,8 +67,8 @@ rule "physicall fitness cooper good"
 		good($id, qDistance, qYears, qGender;) 
 	then
 		System.out.println("good");
-		modify($r){setCooperResult(COOPER_RESULT.GOOD);}
-		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+		modify($r){setCooperResult(COOPER_RESULT.GOOD),
+				   setPhysicalFitness(PHYSICAL_FITNESS.GOOD);}
 	end
 
 query good(Long cId, int cDistance, int cYears, GENDER cGender )
@@ -83,8 +83,8 @@ rule "physicall fitness cooper excellent"
 		excellent($id, qDistance, qYears, qGender;) 
 	then
 		System.out.println("excellent");
-		modify($r){setCooperResult(COOPER_RESULT.EXCELLENT);}
-		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+		modify($r){setCooperResult(COOPER_RESULT.EXCELLENT),
+		setPhysicalFitness(PHYSICAL_FITNESS.EXCELLENT);}
 	end
 	
 query excellent(Long cId, int cDistance, int cYears, GENDER cGender )
