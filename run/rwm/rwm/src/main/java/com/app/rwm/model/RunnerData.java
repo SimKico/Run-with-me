@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.app.rwm.enums.COOPER_RESULT;
 import com.app.rwm.enums.GENDER;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 import com.app.rwm.enums.TIME_GOAL;
@@ -34,6 +35,7 @@ public class RunnerData {
     private boolean plannerTaken;
     
 	private PHYSICAL_FITNESS physicalFitness;
+	private COOPER_RESULT cooperResult;
 
     @OneToMany(mappedBy = "runnerData", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Injury> injury = new HashSet<Injury>();
@@ -77,6 +79,29 @@ public class RunnerData {
 		this.injury = injuries;
 	}
 	
+
+	public COOPER_RESULT getCooperResult() {
+		return cooperResult;
+	}
+
+	public void setCooperResult(COOPER_RESULT cooperResult) {
+		this.cooperResult = cooperResult;
+	}
+
+	public RunnerData(Long id, int years, double height, double weight, GENDER gender, int distance,
+			boolean plannerTaken, PHYSICAL_FITNESS physicalFitness, COOPER_RESULT cooperResult, Set<Injury> injury) {
+		super();
+		this.id = id;
+		this.years = years;
+		this.height = height;
+		this.weight = weight;
+		this.gender = gender;
+		this.distance = distance;
+		this.plannerTaken = plannerTaken;
+		this.physicalFitness = physicalFitness;
+		this.cooperResult = cooperResult;
+		this.injury = injury;
+	}
 
 	public Set<Injury> getInjury() {
 		return injury;

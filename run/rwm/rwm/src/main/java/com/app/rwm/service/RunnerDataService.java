@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.rwm.enums.COOPER_RESULT;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 import com.app.rwm.model.CooperTable;
 import com.app.rwm.model.RunnerData;
@@ -46,6 +47,7 @@ public class RunnerDataService {
 		runnerData.setDistance(-1);
 		runnerData.setPlannerTaken(false);
 		runnerData.setPhysicalFitness(PHYSICAL_FITNESS.NA);
+		runnerData.setCooperResult(COOPER_RESULT.NA);
 		runnerData.setInjury(null);
 		System.out.println("addRunnerData2sfs");
 		System.out.println("addRunnerData :"  + runnerData.getYears() + runnerData.getGender() + runnerData.getId());
@@ -65,15 +67,24 @@ public class RunnerDataService {
 		kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
 		
 		Collection<CooperTable> cooperTable = findAll();
+		kieSession.insert(runnerData);
 		for(CooperTable cooper : cooperTable) {
 			kieSession.insert(cooper);
 		}
-		kieSession.insert(runnerData);
+		String rCooperResult = "NA";
+		kieSession.setGlobal("qDistance", distance);
+		kieSession.setGlobal("qYears", runnerData.getYears());
+		kieSession.setGlobal("qGender", runnerData.getGender());
+		kieSession.setGlobal("rCooperResult", rCooperResult);
+//		kieSession.insert(runnerData);
 		kieSession.fireAllRules();
-//		ArrayList<RunnerData> result = (ArrayList<Exercise>) kieSession.getGlobal("exercises");
+//		rCooperResult = (String) kieSession.getGlobal("rCooperResult");
+//		System.out.println("rCooperResult" + rCooperResult);
 		runnerDataRepository.save(runnerData);
 
 		System.out.println("after save physical fitness" + runnerData.getPhysicalFitness());
+
+		System.out.println("after save cooper" + runnerData.getCooperResult());
 //		kieSession.dispose();
 		return runnerData;
 	}

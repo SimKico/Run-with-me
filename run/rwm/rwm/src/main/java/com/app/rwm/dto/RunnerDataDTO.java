@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.app.rwm.enums.COOPER_RESULT;
 import com.app.rwm.enums.GENDER;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 import com.app.rwm.enums.TIME_GOAL;
@@ -32,6 +33,8 @@ public class RunnerDataDTO {
     
 	private PHYSICAL_FITNESS physicalFitness;
 	
+	private COOPER_RESULT cooperResult;
+	
 	private Collection<InjuryDTO> injuryDTO;
 
 	public RunnerDataDTO() {
@@ -39,7 +42,7 @@ public class RunnerDataDTO {
 	}
 
 	public RunnerDataDTO(Long id, int years, double height, double weight, GENDER gender,
-			PHYSICAL_FITNESS physicalFitness, Collection<InjuryDTO> injuryDTO, int distance) {
+			PHYSICAL_FITNESS physicalFitness, Collection<InjuryDTO> injuryDTO, int distance, COOPER_RESULT cooperResult) {
 		super();
 		this.id = id;
 		this.years = years;
@@ -49,6 +52,15 @@ public class RunnerDataDTO {
 		this.physicalFitness = physicalFitness;
 		this.injuryDTO = injuryDTO;
 		this.distance = distance;
+		this.cooperResult = cooperResult;
+	}
+
+	public COOPER_RESULT getCooperResult() {
+		return cooperResult;
+	}
+
+	public void setCooperResult(COOPER_RESULT cooperResult) {
+		this.cooperResult = cooperResult;
 	}
 
 	public Long getId() {

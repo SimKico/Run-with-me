@@ -11,7 +11,7 @@ public class RunnerDataMapper {
 	public static RunnerDataDTO toDTO(RunnerData runnerData) {
 		Collection<InjuryDTO> injuries;
 		return new RunnerDataDTO(runnerData.getId(),runnerData.getYears(), runnerData.getHeight(),runnerData.getWeight(),
-				runnerData.getGender(),runnerData.getPhysicalFitness(), null, runnerData.getDistance());
+				runnerData.getGender(),runnerData.getPhysicalFitness(), null, runnerData.getDistance(), runnerData.getCooperResult());
 	}
 	
 	public static RunnerData toRunnerData(RunnerDataDTO runnerDataDTO) {

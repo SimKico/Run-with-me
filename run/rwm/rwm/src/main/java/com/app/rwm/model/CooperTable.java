@@ -44,7 +44,7 @@ public class CooperTable {
 		this.average = average;
 		this.good = good;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,15 +1,98 @@
 package com.main
  
 import com.app.rwm.model.RunnerData;
+import com.app.rwm.model.CooperTable;
+import com.app.rwm.enums.GENDER;
+import com.app.rwm.enums.COOPER_RESULT;
 import com.app.rwm.enums.PHYSICAL_FITNESS;
 
-rule "physical fitness"
+global Integer qDistance;
+global Integer qYears;
+global GENDER qGender;
+global String rCooperResult;
+
+rule "physicall fitness cooper"
 	agenda-group "cooper"
 	when
-		$r : RunnerData(distance >= 1500, physicalFitness == PHYSICAL_FITNESS.NA)
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.NA, cooperResult == COOPER_RESULT.NA)
+		$c : CooperTable($id : id)
+		veryBad($id, qDistance, qYears, qGender;) 
 	then
-		System.out.println("hello");
-		$r.setPhysicalFitness(PHYSICAL_FITNESS.GOOD);
-		update($r);
+		System.out.println("very bad");
+		modify($r){setCooperResult(COOPER_RESULT.VERY_BAD);}
+		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
 	end
+	
+query veryBad(Long cId, int cDistance, int cYears, GENDER cGender )
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance <= veryBad && cGender == gender);
+end
+
+rule "physicall fitness cooper bad"
+	agenda-group "cooper"
+	when
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.NA, cooperResult == COOPER_RESULT.NA)
+		$c : CooperTable($id : id)
+		bad($id, qDistance, qYears, qGender;) 
+	then
+		System.out.println("bad");
+		modify($r){setCooperResult(COOPER_RESULT.BAD);}
+		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+	end
+	
+query bad(Long cId, int cDistance, int cYears, GENDER cGender )
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > veryBad && cDistance <= bad && cGender == gender);
+end
+
+rule "physicall fitness cooper average"
+	agenda-group "cooper"
+	when
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.NA, cooperResult == COOPER_RESULT.NA)
+		$c : CooperTable($id : id)
+		average($id, qDistance, qYears, qGender;) 
+	then
+		System.out.println("average");
+		modify($r){setCooperResult(COOPER_RESULT.AVERAGE);}
+		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+	end
+	
+query average(Long cId, int cDistance, int cYears, GENDER cGender )
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > bad && cDistance < average && cGender == gender);
+end
+
+rule "physicall fitness cooper good"
+	agenda-group "cooper"
+	when
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.NA, cooperResult == COOPER_RESULT.NA)
+		$c : CooperTable($id : id)
+		good($id, qDistance, qYears, qGender;) 
+	then
+		System.out.println("good");
+		modify($r){setCooperResult(COOPER_RESULT.GOOD);}
+		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+	end
+
+query good(Long cId, int cDistance, int cYears, GENDER cGender )
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > average && cDistance < good && cGender == gender);
+end
+
+rule "physicall fitness cooper excellent"
+	agenda-group "cooper"
+	when
+		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.NA, cooperResult == COOPER_RESULT.NA)
+		$c : CooperTable($id : id)
+		excellent($id, qDistance, qYears, qGender;) 
+	then
+		System.out.println("excellent");
+		modify($r){setCooperResult(COOPER_RESULT.EXCELLENT);}
+		//modify($r){setPhysicalFitness(PHYSICAL_FITNESS.BAD);}
+	end
+	
+query excellent(Long cId, int cDistance, int cYears, GENDER cGender )
+	CooperTable(id == cId && cYears >= ageMin && ageMax >= cYears && cDistance > good &&  cGender == gender);
+end
+
+	
+
+	
+	
 		
