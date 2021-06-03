@@ -129,6 +129,18 @@ public class RunnerData {
 		this.injury = injury;
 	}
 
+	public RunnerData(int i, int j, int k, GENDER gender, int l) {
+		this.years = i;
+		this.height = j;
+		this.weight = k;
+		this.gender = gender;
+		this.distance = l;
+		this.plannerTaken = false;
+		this.physicalFitness = PHYSICAL_FITNESS.NA;
+		this.cooperResult = COOPER_RESULT.NA;
+		this.injury = null;
+	}
+
 	public Set<Injury> getInjury() {
 		return injury;
 	}
