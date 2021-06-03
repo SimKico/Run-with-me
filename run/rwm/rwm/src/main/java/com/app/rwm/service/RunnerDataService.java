@@ -1,5 +1,8 @@
 package com.app.rwm.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
@@ -8,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.rwm.enums.PHYSICAL_FITNESS;
+import com.app.rwm.model.CooperTable;
 import com.app.rwm.model.RunnerData;
 import com.app.rwm.model.User;
+import com.app.rwm.repository.CooperTableRepository;
 import com.app.rwm.repository.RunnerDataRepository;
 
 @Service
@@ -17,14 +22,17 @@ public class RunnerDataService {
 	
 	private final RunnerDataRepository runnerDataRepository;
 	private final UserService userService;
+	private final CooperTableRepository cooperTableRepository;
+	
 	private static final Logger log = LoggerFactory.getLogger(InjuryService.class);
 	@Autowired
 	private KieSession kieSession;
 
 	@Autowired
-	public RunnerDataService(RunnerDataRepository runnerDataRepository, UserService userService) {
+	public RunnerDataService(RunnerDataRepository runnerDataRepository, UserService userService, CooperTableRepository cooperTableRepository) {
 		this.runnerDataRepository = runnerDataRepository;
 		this.userService = userService;
+		this.cooperTableRepository = cooperTableRepository;
 		this.kieSession = kieSession;
 	}
 
@@ -50,23 +58,28 @@ public class RunnerDataService {
 	}
 
 	public RunnerData calculateRunnerFitness(int distance, User user) {
-		System.out.println("calculate RUnner Fitness" + distance + user);
 		RunnerData runnerData = user.getRunnerData();
 		runnerData.setDistance(distance);
-		System.out.println("distance" + runnerData.getDistance());
 		runnerDataRepository.save(runnerData);
 
-		System.out.println("distance after save" + runnerData.getDistance());
 		kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
+		
+		Collection<CooperTable> cooperTable = findAll();
+		for(CooperTable cooper : cooperTable) {
+			kieSession.insert(cooper);
+		}
 		kieSession.insert(runnerData);
 		kieSession.fireAllRules();
-		System.out.println("distance after rules" + runnerData.getDistance());
-		System.out.println("physical fitness" + runnerData.getPhysicalFitness());
+//		ArrayList<RunnerData> result = (ArrayList<Exercise>) kieSession.getGlobal("exercises");
 		runnerDataRepository.save(runnerData);
 
 		System.out.println("after save physical fitness" + runnerData.getPhysicalFitness());
 //		kieSession.dispose();
 		return runnerData;
+	}
+
+	private Collection<CooperTable> findAll() {
+		return cooperTableRepository.findAll();
 	}
 
 	
