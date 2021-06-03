@@ -1,0 +1,62 @@
+package com.main
+
+import com.app.rwm.model.TrainingPlan;
+import com.app.rwm.model.RunnerData;
+import com.app.rwm.enums.PREPARATION_TIME;
+import com.app.rwm.enums.TIME_GOAL;
+import com.app.rwm.enums.INTENSITY;
+
+rule "ADVANCED"
+	agenda-group "intensity"
+	lock-on-active
+	when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
+	then
+		System.out.println("ADVANCED");
+		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
+end
+
+rule "ADVANCED WEEK_13_TO_16 <50"
+	agenda-group "intensity"
+	lock-on-active
+	when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
+		$r : RunnerData(years <=50)
+	then
+		System.out.println("ADVANCED");
+		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
+end
+
+rule "ADVANCED WEEK_8_TO_12 <40"
+	agenda-group "intensity"
+	lock-on-active
+		when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_8_TO_12)
+		$r : RunnerData(years <=40)
+	then
+		System.out.println("ADVANCED");
+		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
+end
+
+rule "STARTER 50"
+	agenda-group "intensity"
+	lock-on-active
+	when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
+		$r : RunnerData(years > 50)
+	then
+		System.out.println("STARTER");
+		modify($t){setIntensityLevel(INTENSITY.STARTER);}
+end
+
+rule "STARTER 040"
+	agenda-group "intensity"
+	lock-on-active
+	when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
+		$r : RunnerData(years > 40 && years <=50)
+	then
+		System.out.println("STARTER");
+		modify($t){setIntensityLevel(INTENSITY.STARTER);}
+end
+

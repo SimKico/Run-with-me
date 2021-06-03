@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.rwm.enums.TIME_GOAL;
+import com.app.rwm.model.RunnerData;
 import com.app.rwm.model.TrainingPlan;
 import com.app.rwm.model.User;
 import com.app.rwm.repository.TrainingPlanRepository;
@@ -40,7 +41,17 @@ public class TrainingPlanService {
 		kieSession.insert(trainingPlan);
 		kieSession.fireAllRules();
 		trainingPlanRepository.save(trainingPlan);
+		RunnerData runnerData = user.getRunnerData();
+		calculateIntensity(trainingPlan, runnerData);
 		return trainingPlan;
+	}
+
+	private void calculateIntensity(TrainingPlan trainingPlan, RunnerData runnerData) {
+		kieSession.getAgenda().getAgendaGroup("intensity").setFocus();
+		kieSession.insert(trainingPlan);
+		kieSession.insert(runnerData);
+		kieSession.fireAllRules();
+		trainingPlanRepository.save(trainingPlan);
 	}
 	
 }
