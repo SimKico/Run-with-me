@@ -5,6 +5,9 @@ import com.app.rwm.model.TrainingPlan;
 import com.app.rwm.enums.INJURY_TYPE;
 import com.app.rwm.enums.INJURY_CATEGORY;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 import java.util.ArrayList;
 
 global ArrayList injuries;
@@ -20,14 +23,16 @@ rule "Injury severe broken leg"
         update($r);
 end
 
-rule "Injury severe more than 3 injuries"//mozda dodati zadnja tri mjeseca
+rule "Injury severe more than 3 injuries"
 	agenda-group "injury"
 	no-loop
 	when 
 		$r : RunnerData($id : id)
 		accumulate (
 			$rd : Injury(
-				  runnerData.getId() == $id ) from injuries,
+				  runnerData.getId() == $id,
+				  ChronoUnit.DAYS.between(Instant.now(), dateOfInjury) <= 84 //84 days - 12 weeks
+				  		 ) from injuries,
 				$count: collectList($rd)
 			)
 		eval ($count.size() >= 2)

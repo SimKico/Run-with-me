@@ -1,28 +1,28 @@
 package com.app.rwm.dto;
 
-import java.util.Date;
 
+import java.time.Instant;
 import com.app.rwm.enums.INJURY_TYPE;
 
 public class InjuryDTO {
 
-	private Date dateOfInjury;
+	private Instant dateOfInjury;
 	private INJURY_TYPE injuryType;
 	 
 	public InjuryDTO() {
 		super();
 	}
 
-	public InjuryDTO(Date dateOfInjury, INJURY_TYPE injuryType) {
+	public InjuryDTO(Instant dateOfInjury, INJURY_TYPE injuryType) {
 		super();
 		this.dateOfInjury = dateOfInjury;
 		this.injuryType = injuryType;
 	}
 
-	public Date getDateOfInjury() {
+	public Instant getDateOfInjury() {
 		return dateOfInjury;
 	}
-	public void setDateOfInjury(Date dateOfInjury) {
+	public void setDateOfInjury(Instant dateOfInjury) {
 		this.dateOfInjury = dateOfInjury;
 	}
 	public INJURY_TYPE getInjuryType() {

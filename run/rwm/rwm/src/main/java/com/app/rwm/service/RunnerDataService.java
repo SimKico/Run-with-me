@@ -51,20 +51,17 @@ public class RunnerDataService {
 	
 	public RunnerData addRunnerData(RunnerData runnerData, String username) {
 		runnerData.setId((long) 1);
-		System.out.println("addRunnerData1");
 		runnerData.setDistance(-1);
 		runnerData.setPlannerTaken(false);
 		runnerData.setPhysicalFitness(PHYSICAL_FITNESS.NA);
 		runnerData.setCooperResult(COOPER_RESULT.NA);
 		runnerData.setInjury(null);
 		runnerData.setInjuryCategory(INJURY_CATEGORY.NA);
-		System.out.println("addRunnerData2sfs");
-		System.out.println("addRunnerData :"  + runnerData.getYears() + runnerData.getGender() + runnerData.getId());
-		RunnerData userRunnerData = runnerDataRepository.save(runnerData);
-		System.out.println("addRunnerData3 + username" + runnerData + username);
-		userService.updateRunnerData(userRunnerData, username);
-		System.out.println("addRunnerData4");
 		
+		RunnerData userRunnerData = runnerDataRepository.save(runnerData);
+		
+		userService.updateRunnerData(userRunnerData, username);
+
 		return userRunnerData;
 	}
 
@@ -81,20 +78,15 @@ public class RunnerDataService {
 			kieSession.insert(cooper);
 		}
 		String rCooperResult = "NA";
+		
 		kieSession.setGlobal("qDistance", distance);
 		kieSession.setGlobal("qYears", runnerData.getYears());
 		kieSession.setGlobal("qGender", runnerData.getGender());
 		kieSession.setGlobal("rCooperResult", rCooperResult);
-//		kieSession.insert(runnerData);
+
 		kieSession.fireAllRules();
-//		rCooperResult = (String) kieSession.getGlobal("rCooperResult");
-//		System.out.println("rCooperResult" + rCooperResult);
 		runnerDataRepository.save(runnerData);
 
-		System.out.println("after save physical fitness" + runnerData.getPhysicalFitness());
-
-		System.out.println("after save cooper" + runnerData.getCooperResult());
-//		kieSession.dispose();
 		return runnerData;
 	}
 
@@ -103,36 +95,23 @@ public class RunnerDataService {
 	}
 
 	public RunnerData addInjury(Injury injury, RunnerData runnerData) {
-		System.out.println("Add - runnerDataService " + runnerData.getId());
 		kieSession.getAgenda().getAgendaGroup("injury").setFocus();
-		System.out.println("set" + runnerData.getInjury().isEmpty());
 		
 		if(runnerData.getInjury().isEmpty()) {
-			System.out.println("is empty");
 			Set<Injury> injuries = new HashSet<Injury>();
 			injuries.add(injury);
 			runnerData.setInjury(injuries);
 		}else {
-			System.out.println("not empty");
 			Set<Injury> injuries = runnerData.getInjury();
-			System.out.println("New Injury date: " + injury.getDateOfInjury());
-			System.out.println("New Injury type: " + injury.getInjuryType());
-			System.out.println("Injuries: ");
-			for(Injury inj : injuries){
-				System.out.println("Injury date: " + inj.getDateOfInjury());
-				System.out.println("Injury type: " + inj.getInjuryType());
-			}
 			injuries.add(injury);
 			runnerData.setInjury(injuries);
 		}
 		Collection<Injury> injuries = injuryRepository.findAll();
 
-		System.out.println("Injuries: " + injuries.size());
 		kieSession.setGlobal("injuries", injuries);
 		kieSession.insert(injury);
 		kieSession.insert(runnerData);
 		kieSession.fireAllRules();
-		System.out.println("After rules "+ runnerData.getInjury());
 //		kieSession.dispose();
 		runnerDataRepository.save(runnerData);
 		return runnerData;

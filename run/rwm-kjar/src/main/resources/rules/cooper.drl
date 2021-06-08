@@ -11,7 +11,7 @@ global Integer qYears;
 global GENDER qGender;
 global String rCooperResult;
 
-rule "physicall fitness cooper"
+rule "physicall fitness cooper very bad"
 	agenda-group "cooper"
 	when
 		$r : RunnerData(physicalFitness == PHYSICAL_FITNESS.NA, cooperResult == COOPER_RESULT.NA)

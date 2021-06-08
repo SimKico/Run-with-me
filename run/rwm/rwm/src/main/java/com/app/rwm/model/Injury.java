@@ -1,6 +1,6 @@
 package com.app.rwm.model;
 
-import java.util.Date;
+import java.time.Instant;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ public class Injury {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
 
-	 private Date dateOfInjury;
+	 private Instant dateOfInjury;
 	 private INJURY_TYPE injuryType;
 	 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
@@ -34,7 +34,7 @@ public class Injury {
 		super();
 	}
 
-	public Injury(Long id, Date dateOfInjury, INJURY_TYPE injuryType) {
+	public Injury(Long id, Instant dateOfInjury, INJURY_TYPE injuryType) {
 		super();
 		this.id = id;
 		this.dateOfInjury = dateOfInjury;
@@ -42,7 +42,7 @@ public class Injury {
 	}
 	
 
-	public Injury( Date dateOfInjury, INJURY_TYPE injuryType,
+	public Injury( Instant dateOfInjury, INJURY_TYPE injuryType,
 			RunnerData runnerData) {
 		super();
 		this.dateOfInjury = dateOfInjury;
@@ -69,11 +69,11 @@ public class Injury {
 	}
 
 
-	public Date getDateOfInjury() {
+	public Instant getDateOfInjury() {
 		return dateOfInjury;
 	}
 
-	public void setDateOfInjury(Date dateOfInjury) {
+	public void setDateOfInjury(Instant dateOfInjury) {
 		this.dateOfInjury = dateOfInjury;
 	}
 

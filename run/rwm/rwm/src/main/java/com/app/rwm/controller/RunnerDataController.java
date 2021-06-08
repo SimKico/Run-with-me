@@ -50,7 +50,6 @@ public class RunnerDataController {
 	
 	@PutMapping(path = "/cooper", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RunnerDataDTO> addCooper(@RequestBody CooperDTO distance){
-		System.out.println("distance " + distance.getDistance());
 		User user = userService.findOneByUsername("user1");
 		RunnerData runnerData = runnerDataService.calculateRunnerFitness(distance.getDistance(), user);
 		 return new ResponseEntity<>(RunnerDataMapper.toDTO(runnerData), HttpStatus.OK);

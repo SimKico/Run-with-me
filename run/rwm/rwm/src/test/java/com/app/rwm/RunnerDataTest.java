@@ -59,7 +59,7 @@ public class RunnerDataTest {
 
 	     kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
 	     RunnerData runnerData = new RunnerData(28,170,75,GENDER.FEMALE,2000);
-	     Date date = new Date();
+	     Instant date = Instant.now();
 	     Injury injury = new Injury(date, INJURY_TYPE.KNEE_PAIN,runnerData);
 	     
 	     kieSession.insert(injury);
@@ -77,7 +77,7 @@ public class RunnerDataTest {
 
 	     kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
 	     RunnerData runnerData = new RunnerData(28,170,75,GENDER.FEMALE,2000);
-	     Date date = new Date();
+	     Instant date = Instant.now();
 	     Injury injury = new Injury(date, INJURY_TYPE.BROKEN_LEG,runnerData);
 	     
 	     kieSession.insert(injury);
@@ -99,9 +99,9 @@ public class RunnerDataTest {
 	     kieSession.fireAllRules();
 	 
 	     kieSession.getAgenda().getAgendaGroup("intensity").setFocus();
-			kieSession.insert(trainingPlan);
-			kieSession.insert(runnerData);
-			kieSession.fireAllRules();
+		 kieSession.insert(trainingPlan);
+		 kieSession.insert(runnerData);
+		 kieSession.fireAllRules();
 			
 		assertEquals(trainingPlan.getIntensityLevel(), INTENSITY.INTERMEDIATE);
 	}
