@@ -45,11 +45,17 @@ export class DashboardHomeComponent implements OnInit {
   
   addInjury(injury:string): void {
     console.log(this.injury);
-    const selectedInjury = new Injury(new Date(), this.injury, 2);
+    const date = new Date();
+    console.log(date.toISOString());
+    const selectedInjury = new Injury("2021-06-03T21:34:33.616Z", this.injury);
    
     this.injuryService.addInjury(selectedInjury);
     // .subscribe(addedInjury =>{
     //   console.log(addedInjury);
     // })
+  }
+
+  test(){
+    this.injuryService.test().subscribe(result => {console.log(result);});
   }
 }
