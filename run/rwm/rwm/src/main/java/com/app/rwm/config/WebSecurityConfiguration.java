@@ -79,7 +79,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 			.antMatchers(
                 		HttpMethod.POST,
                 		"/auth/sign-up",
-                		"/auth/log-in"
+                		"/auth/log-in",
+                		"/rwm/runner"
                 		).permitAll()
                
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL

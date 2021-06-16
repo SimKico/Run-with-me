@@ -7,6 +7,7 @@ import 'rxjs/add/operator/delay';
 
 import { environment } from '../../../environments/environment';
 import { of, EMPTY } from 'rxjs';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
     providedIn: 'root'
@@ -20,25 +21,26 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        return this.http.post(`${environment.baseUrl}/${environment.login}`, {username: email, password: password}, {headers: this.headers, responseType: 'json'});
-            // .pipe(map((response) => {
-            //     console.log("bio na bekyu");
-            //     // set token property
-            //     const decodedToken = jwt_decode(response['token']);
+        return this.http.post(`${environment.baseUrl}/${environment.login}`, {username: email, password: password}, {headers: this.headers, responseType: 'json'})
+            .pipe(map((response) => {
+                console.log("bio na bekyu");
+                // set token property
+                console.log(response);
+                const decodedToken = jwt_decode(response['accessToken']);
 
-            //     // store email and jwt token in local storage to keep user logged in between page refreshes
-            //     this.localStorage.setItem('currentUser', JSON.stringify({
-            //         token: decodedToken,
-            //         isAdmin: true,
-            //         // email: 'john.doe@gmail.com',
-            //         // id: '12312323232',
-            //         // alias: 'john.doe@gmail.com'.split('@')[0],
-            //         // expiration: moment().add(1, 'days').toDate(),
-            //         // fullName: 'John Doe'
-            //     }));
+                // store email and jwt token in local storage to keep user logged in between page refreshes
+                this.localStorage.setItem('currentUser', JSON.stringify({
+                    token: decodedToken,
+                    isAdmin: false,
+                    email: decodedToken['sub'],
+                    // id: '12312323232',
+                    alias: decodedToken['sub'].split('@')[0],
+                    expiration: moment().add(1, 'days').toDate(),
+                    // fullName: 'John Doe'
+                }));
 
-            //     return true;
-            // }));
+                return true;
+            }));
     }
 
     logout(): void {
@@ -48,16 +50,16 @@ export class AuthenticationService {
 
     getCurrentUser(): any {
         // TODO: Enable after implementation
-        // return JSON.parse(this.localStorage.getItem('currentUser'));
-        return {
-            token: 'aisdnaksjdn,axmnczm',
-            isAdmin: true,
-            email: 'john.doe@gmail.com',
-            id: '12312323232',
-            alias: 'john.doe@gmail.com'.split('@')[0],
-            expiration: moment().add(1, 'days').toDate(),
-            fullName: 'John Doe'
-        };
+        return JSON.parse(this.localStorage.getItem('currentUser'));
+        // return {
+        //     token: 'aisdnaksjdn,axmnczm',
+        //     isAdmin: true,
+        //     email: 'john.doe@gmail.com',
+        //     id: '12312323232',
+        //     alias: 'john.doe@gmail.com'.split('@')[0],
+        //     expiration: moment().add(1, 'days').toDate(),
+        //     fullName: 'John Doe'
+        // };
     }
 
     passwordResetRequest(email: string) {

@@ -41,8 +41,9 @@ public class RunnerDataController {
 	public ResponseEntity<Long> addRunnerData(@RequestBody BasicRunnerDataDTO basicRunnerDataDTO){
 //		User user = userService.findOneByUsername("user1");
 		System.out.println("basicRunnerData" + basicRunnerDataDTO.getGender());
-
-		System.out.println("basicRunnerData" +(basicRunnerDataDTO.getGender()).getClass());
+		System.out.println("basicRunnerData" + basicRunnerDataDTO.getYears());
+		
+//		System.out.println("basicRunnerData" +(basicRunnerDataDTO.getGender()).getClass());
 		RunnerData runnerData = runnerDataService.addRunnerData(BasicRunnerDataMapper.toRunnerData(basicRunnerDataDTO), "user1");
 		System.out.println("basicRunnerData" + runnerData);
 		 return new ResponseEntity<>(runnerData.getId(), HttpStatus.OK);

@@ -15,4 +15,6 @@ export const environment = {
   signUpAdmin: 'auth/sign-up-admin',
   signOut: 'auth/sign-out',
   changePassword: 'auth/change-password',
+  runnerData : 'rwm/runner',
+  cooper : 'cooper'
 };
