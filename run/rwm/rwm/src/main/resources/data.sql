@@ -2,10 +2,10 @@ insert into "runner_data" ( years, height, weight, gender, distance, planner_tak
 values ( 10, 170, 64, 1, 0, false, 1, 0);
 
 insert into "users" ( name, surname, email, verified,username, password,user_role,training_plan,runner_data)
- values ( 'Petar','Petrovic', 'admin@gmail.com',true,'admin', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO' ,'ROLE_ADMIN',null,null);
+ values ( 'Petar','Petrovic', 'admin@gmail.com',true,'admin', '$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK' ,'ROLE_ADMIN',null,null);
 
 insert into "users" (name, surname, email, verified,username, password,user_role,training_plan,runner_data)
- values ('Snjezana','Simic', 's.snjezana@gmail.com',true,'user1', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO' ,'ROLE_RUNNER',null, null);
+ values ('Snjezana','Simic', 's.snjezana@gmail.com',true,'user1', '$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK' ,'ROLE_RUNNER',null, null);
 
 
 insert into cooper_table (gender, age_min, age_max, very_bad, bad, average, good)
