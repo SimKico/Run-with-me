@@ -60,20 +60,23 @@ export class CustomerListComponent implements OnInit {
 
   enterData() {
     this.loading = true;
-    const raceDate = new Cooper(this.form.get("raceDate").value);
-    console.log(raceDate);
-    console.log(this.timeGoal);
-    const raceData = new Race("2021-09-10T21:34:33.616Z", "Derventa", this.timeGoal);
+    const raceDate = this.form.get("raceDate").value;
+    const date = new Date(raceDate);
+    const username = localStorage.getItem("username");
+    const raceData = new Race(username, date.toISOString(), "Derventa", this.timeGoal);
 
     this.runnerService.enterRace(raceData)
       .subscribe(
         results => {
           console.log("here");
-          this.router.navigate(['/newRace']);
+          this.loading = false;
+          // this.router.navigate(['/addRace']);
           this.notificationService.openSnackBar('Your data is successfully saved.');
         },
         error => {
           this.loading = false;
+          
+          console.log("false");
           this.notificationService.openSnackBar(error.error);
         }
       );

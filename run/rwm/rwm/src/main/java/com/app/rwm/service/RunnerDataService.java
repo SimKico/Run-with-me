@@ -50,8 +50,13 @@ public class RunnerDataService {
 	}
 	
 	public RunnerData addRunnerData(RunnerData runnerData, String username) {
-		runnerData.setId((long) 1);
+		System.out.println("add runner data runnerData.getID() 1 "  + runnerData.getId());
+//		runnerData.setId();
 		runnerData.setDistance(-1);
+		runnerData.setHeight(runnerData.getHeight());
+		runnerData.setWeight(runnerData.getWeight());
+		runnerData.setYears(runnerData.getYears());
+		runnerData.setGender(runnerData.getGender());
 		runnerData.setPlannerTaken(false);
 		runnerData.setPhysicalFitness(PHYSICAL_FITNESS.NA);
 		runnerData.setCooperResult(COOPER_RESULT.NA);
@@ -62,15 +67,19 @@ public class RunnerDataService {
 		
 		userService.updateRunnerData(userRunnerData, username);
 
+		System.out.println("add runner data runnerData.getID() 2 " + runnerData.getId());
 		return userRunnerData;
 	}
 
 	public RunnerData calculateRunnerFitness(int distance, User user) {
 		System.out.println("user" + user.getUsername());
 		RunnerData runnerData = user.getRunnerData();
+
+		System.out.println("calculate runner fitness 1 " + runnerData.getId());
 		System.out.println("user" + user.getRunnerData());
 		runnerData.setDistance(distance);
 		runnerDataRepository.save(runnerData);
+		System.out.println("calculate runner fitness 2 " + runnerData.getId());
 
 		kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
 		

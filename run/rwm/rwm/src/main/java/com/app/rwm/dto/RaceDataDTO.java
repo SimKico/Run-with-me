@@ -6,7 +6,8 @@ import java.util.Date;
 import com.app.rwm.enums.TIME_GOAL;
 
 public class RaceDataDTO {
-
+	private String username;
+	
 	private Instant raceDate;
 	private String raceLocation;
 	private TIME_GOAL timeGoal;
@@ -18,6 +19,20 @@ public class RaceDataDTO {
 		this.raceDate = raceDate;
 		this.raceLocation = raceLocation;
 		this.timeGoal = timeGoal;
+	}
+	
+	public RaceDataDTO(String username, Instant raceDate, String raceLocation, TIME_GOAL timeGoal) {
+		super();
+		this.username = username;
+		this.raceDate = raceDate;
+		this.raceLocation = raceLocation;
+		this.timeGoal = timeGoal;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public Instant getRaceDate() {
 		return raceDate;

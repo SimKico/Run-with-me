@@ -27,7 +27,7 @@ export class AuthenticationService {
                 // set token property
                 console.log(response);
                 const decodedToken = jwt_decode(response['accessToken']);
-
+                this.localStorage.setItem('username',decodedToken['sub'].split('@')[0] );
                 // store email and jwt token in local storage to keep user logged in between page refreshes
                 this.localStorage.setItem('currentUser', JSON.stringify({
                     token: decodedToken,

@@ -28,7 +28,7 @@ public class TrainingPlan {
 	private Instant raceDate;
 	private String raceLocation;
 	private TIME_GOAL timeGoal;
-	
+	private String trainingName;
 	private boolean canceledPreparation;
 
     private INTENSITY intensityLevel;
@@ -70,6 +70,34 @@ public class TrainingPlan {
 		this.raceDate = raceDate;
 		this.raceLocation = raceLocation;
 		this.setTimeGoal(timeGoal);
+	}
+
+	
+	public TrainingPlan(Long id, Instant raceDate, String raceLocation, TIME_GOAL timeGoal, String trainingName,
+			boolean canceledPreparation, INTENSITY intensityLevel, LEVEL level, PREPARATION_TIME preparationTime,
+			Set<IntervalTraining> intervalTraining, Set<StrenghtTraining> strenghtTraining,
+			Set<DistanceTraining> distanceTraining) {
+		super();
+		this.id = id;
+		this.raceDate = raceDate;
+		this.raceLocation = raceLocation;
+		this.timeGoal = timeGoal;
+		this.trainingName = trainingName;
+		this.canceledPreparation = canceledPreparation;
+		this.intensityLevel = intensityLevel;
+		this.level = level;
+		this.preparationTime = preparationTime;
+		this.intervalTraining = intervalTraining;
+		this.strenghtTraining = strenghtTraining;
+		this.distanceTraining = distanceTraining;
+	}
+
+	public String getTrainingName() {
+		return trainingName;
+	}
+
+	public void setTrainingName(String trainingName) {
+		this.trainingName = trainingName;
 	}
 
 	public Long getId() {

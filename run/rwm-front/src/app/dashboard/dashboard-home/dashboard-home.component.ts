@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { InjuryService } from 'src/app/core/services/injury.service';
 import { Injury } from 'src/app/core/model/injury';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -24,6 +25,7 @@ export class DashboardHomeComponent implements OnInit {
   
   constructor(private notificationService: NotificationService,
     private authService: AuthenticationService,
+    private router: Router,
     private titleService: Title,
     private logger: NGXLogger,
     private injuryService : InjuryService,
@@ -47,13 +49,22 @@ export class DashboardHomeComponent implements OnInit {
     console.log(this.injury);
     const date = new Date();
     console.log(date.toISOString());
-    const selectedInjury = new Injury("2021-06-03T21:34:33.616Z", this.injury);
+    const username = localStorage.getItem("username");
+    const selectedInjury = new Injury(username ,date.toISOString(), this.injury);
     console.log(selectedInjury);
    
     this.injuryService.addInjury(selectedInjury)
-    .subscribe(addedInjury =>{
-      console.log(addedInjury);
-    })
+    .subscribe(
+      results => {
+        console.log("here");
+        // this.router.navigate(['/addRace']);//to do - to program
+        this.notificationService.openSnackBar('You can continue with preparation.');//mozda da prebaci na neki sajt sa povredama, ili da ubacim neke vjezbice u zavisnosti koja je povreda
+      },
+      error => {
+        console.log("error");
+        this.notificationService.openSnackBar(error.error);
+      }
+    );
   }
 
   test(){

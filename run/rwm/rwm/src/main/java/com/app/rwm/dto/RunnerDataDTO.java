@@ -15,7 +15,8 @@ import com.app.rwm.enums.TIME_GOAL;
 
 public class RunnerDataDTO {
 	private Long id;
-
+	private String username;
+	
 //    @NotNull(message = "Years can not be null")
 //    @Min(value = 0, message = "Years min is {value}")
     private int years;
@@ -53,6 +54,29 @@ public class RunnerDataDTO {
 		this.injuryDTO = injuryDTO;
 		this.distance = distance;
 		this.cooperResult = cooperResult;
+	}
+
+	public RunnerDataDTO(Long id, String username, int years, double height, double weight, int distance, GENDER gender,
+			PHYSICAL_FITNESS physicalFitness, COOPER_RESULT cooperResult, Collection<InjuryDTO> injuryDTO) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.years = years;
+		this.height = height;
+		this.weight = weight;
+		this.distance = distance;
+		this.gender = gender;
+		this.physicalFitness = physicalFitness;
+		this.cooperResult = cooperResult;
+		this.injuryDTO = injuryDTO;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public COOPER_RESULT getCooperResult() {

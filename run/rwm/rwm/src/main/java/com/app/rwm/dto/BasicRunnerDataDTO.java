@@ -5,6 +5,8 @@ import java.util.Collection;
 import com.app.rwm.enums.GENDER;
 
 public class BasicRunnerDataDTO {
+
+  private String username;	
 //  @NotNull(message = "Years can not be null")
 //  @Min(value = 0, message = "Years min is {value}")
   private int years;
@@ -45,6 +47,17 @@ public BasicRunnerDataDTO(int years, double height, double weight, GENDER gender
 
 
 
+public BasicRunnerDataDTO(String username, int years, double height, double weight, GENDER gender,
+		Collection<InjuryDTO> injuries) {
+	super();
+	this.username = username;
+	this.years = years;
+	this.height = height;
+	this.weight = weight;
+	this.gender = gender;
+	this.injuries = injuries;
+}
+
 public Collection<InjuryDTO> getInjuries() {
 	return injuries;
 }
@@ -83,6 +96,14 @@ public GENDER getGender() {
 
 public void setGender(GENDER gender) {
 	this.gender = gender;
+}
+
+public String getUsername() {
+	return username;
+}
+
+public void setUsername(String username) {
+	this.username = username;
 }
   
   

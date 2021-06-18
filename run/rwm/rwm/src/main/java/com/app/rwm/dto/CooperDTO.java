@@ -2,7 +2,22 @@ package com.app.rwm.dto;
 
 public class CooperDTO {
 
+	private String username;
 	public int distance;
+
+	public CooperDTO(String username, int distance) {
+		super();
+		this.username = username;
+		this.distance = distance;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public CooperDTO(int distance) {
 		super();

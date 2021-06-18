@@ -34,18 +34,22 @@ export class TypographyComponent implements OnInit {
 
   enterData() {
     this.loading = true;
-    const cooper = new Cooper(this.form.get("distance").value);
+    const username = localStorage.getItem("username");
+    const cooper = new Cooper(username,this.form.get("distance").value);
     console.log(cooper);
 
     this.runnerService.enterCooper(cooper)
       .subscribe(
         results => {
           console.log("here");
-          this.router.navigate(['/newRace']);
+          console.log(results);
+          this.router.navigate(['/addRace']);
           this.notificationService.openSnackBar('Your data is successfully saved.');
         },
         error => {
           this.loading = false;
+         
+          console.log("error");
           this.notificationService.openSnackBar(error.error);
         }
       );

@@ -23,7 +23,7 @@ rule "Injury severe broken leg"
         update($r);
 end
 
-rule "Injury severe more than 3 injuries"
+rule "Injury severe more than 1 injury"
 	agenda-group "injury"
 	no-loop
 	when 
@@ -35,7 +35,7 @@ rule "Injury severe more than 3 injuries"
 				  		 ) from injuries,
 				$count: collectList($rd)
 			)
-		eval ($count.size() >= 2)
+		eval ($count.size() > 1)
 	then
 		System.out.println("More injuries");
         modify($r){setInjuryCategory(INJURY_CATEGORY.SEVERE_INJURY);}

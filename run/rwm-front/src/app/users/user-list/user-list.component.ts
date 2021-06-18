@@ -15,9 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  private years: number;
-  private weight: number;
-  private height: number;
+
   form: FormGroup;
   loading: boolean;
   gender : string = "FEMALE";
@@ -44,12 +42,12 @@ export class UserListComponent implements OnInit {
 
   enterData() {
     this.loading = true;
-    const runnerData = new BasicRunnerData(this.form.get("years").value, this.form.get("height").value, this.form.get("weight").value, this.gender);
+    const username = localStorage.getItem("username");
+    console.log(username);
+    console.log(this.form.get("years").value);
+    const runnerData = new BasicRunnerData(username, parseInt(this.form.get("years").value), this.form.get("height").value, this.form.get("weight").value, this.gender, null);
     console.log(runnerData);
-    // runnerData.years = this.years;
-    // runnerData.weight = this.weight;
-    // runnerData.height =  this.height;
-    // runnerData.gender = this.gender;
+
 
     this.runnerService.addRunnerData(runnerData)
       .subscribe(
@@ -57,6 +55,7 @@ export class UserListComponent implements OnInit {
           console.log("here");
           localStorage.setItem("isEnteredBasicData", "true");
           this.router.navigate(['/cooper']);
+          console.log(results);
           this.notificationService.openSnackBar('Your data are saved.');
         },
         error => {

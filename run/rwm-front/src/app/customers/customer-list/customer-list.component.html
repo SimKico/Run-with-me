@@ -7,19 +7,21 @@
               <mat-card-subtitle>Add new halfmarathon</mat-card-subtitle>
 
               <mat-form-field class="full-width">
-                  <input id="raceDateInput" matInput  formControlName="raceDate" type = "date">
+                  <input id="raceDateInput" matInput placeholder="race date" formControlName="raceDate" type = "date">
               </mat-form-field>
 
               
         <mat-form-field>
-          <mat-select name="injury" [(value)]="timeGoal" placeholder="Injury">
-            <mat-option [value]="'BETWEEN_1h20m_AND_1h50m'">BETWEEN_1h20m_AND_1h50m</mat-option>
+          <mat-select name="injury" [(value)]="timeGoal" placeholder="finishing time goal">
+            <mat-option [value]="'UNDER_1h20m'">under 1h:20min</mat-option>
+            <mat-option [value]="'BETWEEN_1h20m_AND_1h50m'">between 1h:20m and 1h:50m</mat-option>
+            <mat-option [value]="'OVER_1h50m'">over 1h:50m</mat-option>
           </mat-select>
         </mat-form-field>
 
               <mat-card-actions class="login-actions">
                   <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid || loading"
-                      (click)="enterData()">Enter data</button>
+                      (click)="enterData()">Save informations</button>
               </mat-card-actions>
 
               <mat-card-content>

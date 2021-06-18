@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
                     } else {
                         localStorage.removeItem('savedUserEmail');
                     }
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/users']);
                 },
                 error => {
                     this.notificationService.openSnackBar(error.error);

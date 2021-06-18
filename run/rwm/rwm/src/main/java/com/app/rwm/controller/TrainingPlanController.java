@@ -34,15 +34,21 @@ public class TrainingPlanController {
 	@PostMapping(path = "/data", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> addRaceData(@RequestBody RaceDataDTO raceDataDTO){
 		System.out.println("raceDataDTO" + raceDataDTO);
-		User user = userService.findOneByUsername("admin");
-		TrainingPlan trainingPlan = trainingPlanService.addRaceData(raceDataDTO.getRaceDate(), raceDataDTO.getRaceLocation(), raceDataDTO.getTimeGoal(), user);
-		if(trainingPlan.isCanceledPreparation()) {
-			System.out.println("isCanceledPreparation JES");
-			return new ResponseEntity<>("Premalo vremena za pripremu!", HttpStatus.NOT_ACCEPTABLE);
-		}else {
-			System.out.println("isCanceledPreparation NO");
-			return new ResponseEntity<>("OK", HttpStatus.OK);
-		}
+		User user = userService.findOneByUsername(raceDataDTO.getUsername());
+//		if(!trainingPlanService.isAlreadyPreparationOn(raceDataDTO)) {
+			TrainingPlan trainingPlan = trainingPlanService.addRaceData(raceDataDTO.getRaceDate(), raceDataDTO.getRaceLocation(), raceDataDTO.getTimeGoal(), user);
+			if(trainingPlan.isCanceledPreparation()) {
+				System.out.println("isCanceledPreparation JES");
+				return new ResponseEntity<>("There is no enough time to prepare for that race!", HttpStatus.NOT_ACCEPTABLE);
+			}else {
+				System.out.println("isCanceledPreparation NO");
+				return new ResponseEntity<>(trainingPlan.getTrainingName(), HttpStatus.OK);
+			}
+//		}else {
+//			System.out.println("isCanceledPreparation NO");
+//			return new ResponseEntity<>("There is already an active preparation process for a half marathon!", HttpStatus.NOT_ACCEPTABLE);
+//		}
+
 	}
 	
 }

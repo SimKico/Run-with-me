@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 
 import com.app.rwm.dto.InjuryDTO;
 import com.app.rwm.dto.RunnerDataDTO;
+import com.app.rwm.enums.INJURY_CATEGORY;
 import com.app.rwm.model.Injury;
 import com.app.rwm.model.RunnerData;
 import com.app.rwm.model.User;
@@ -40,7 +41,7 @@ public class InjuryController{
     private CustomUserDetailsService userDetailsService;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	 public ResponseEntity<RunnerDataDTO> isCancelingPreparation(@RequestBody InjuryDTO injury) {
+	 public ResponseEntity<String> isCancelingPreparation(@RequestBody InjuryDTO injury) {
 
 //		System.out.println("Injury add" + injury.getInjuryType());
 		 // Ocitavamo trenutno ulogovanog korisnika
@@ -52,7 +53,7 @@ public class InjuryController{
 //		System.out.println("username add" + username);
 //	    User user = (User) this.userDetailsService.loadUserByUsername(username);
 //		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = userService.findOneByUsername("admin");
+		User user = userService.findOneByUsername(injury.getUsername());
 		System.out.println("Injury add - injury type" + injury.getInjuryType());
 		System.out.println("Injury add - date of injury" + injury.getDateOfInjury());
 		System.out.println("Injury add - user");
@@ -61,9 +62,11 @@ public class InjuryController{
 		RunnerData runnerData = user.getRunnerData();
 		Injury i = new Injury(injury.getDateOfInjury(),injury.getInjuryType(), runnerData);
 		injuryService.addInjury(i, runnerData);
-		
-		return new ResponseEntity<RunnerDataDTO>(HttpStatus.OK);
-	
+		if(runnerData.getInjuryCategory() == INJURY_CATEGORY.SEVERE_INJURY) {
+			return new ResponseEntity<String>("You have a severe injury, and you should stop preparation for a half-marathon! Take a rest, and try some other race when you fully recover.",  HttpStatus.NOT_ACCEPTABLE);
+		}else {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
     }
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)

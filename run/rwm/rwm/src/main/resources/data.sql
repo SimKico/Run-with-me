@@ -5,7 +5,7 @@ insert into "users" ( name, surname, email, verified,username, password,user_rol
  values ( 'Petar','Petrovic', 'admin@gmail.com',true,'admin', '$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK' ,'ROLE_ADMIN',null,null);
 
 insert into "users" (name, surname, email, verified,username, password,user_role,training_plan,runner_data)
- values ('Snjezana','Simic', 's.snjezana@gmail.com',true,'user1', '$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK' ,'ROLE_RUNNER',null, null);
+ values ('Snjezana','Simic', 'user1@gmail.com',true,'user1', '$2a$04$SwzgBrIJZhfnzOw7KFcdzOTiY6EFVwIpG7fkF/D1w26G1.fWsi.aK' ,'ROLE_RUNNER',null, null);
 
 
 insert into cooper_table (gender, age_min, age_max, very_bad, bad, average, good)
