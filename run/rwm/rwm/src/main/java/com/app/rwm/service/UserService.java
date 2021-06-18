@@ -43,7 +43,7 @@ public class UserService{
 	}
 
 	public User updateRunnerData(RunnerData userRunnerData, String username) {
-		User userToUpdate = userRepository.findByEmail("s.snjezana@gmail.com");
+		User userToUpdate = userRepository.findByEmail("admin@gmail.com");
 		userToUpdate.setRunnerData(userRunnerData);
 		return userRepository.save(userToUpdate);
 	}

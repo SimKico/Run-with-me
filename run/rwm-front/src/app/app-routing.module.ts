@@ -22,7 +22,7 @@ const appRoutes: Routes = [
         path: 'users',
         loadChildren: './users/users.module#UsersModule',
         canActivate: [AuthGuard]
-    },
+    },   
     {
         path: 'account',
         loadChildren: './account/account.module#AccountModule',
@@ -34,7 +34,7 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'typography',
+        path: 'cooper',
         loadChildren: './typography/typography.module#TypographyModule',
         canActivate: [AuthGuard]
     },

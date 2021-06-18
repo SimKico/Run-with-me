@@ -72,7 +72,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 //                .authorizeRequests().antMatchers("/auth/**").permitAll()
                 .authorizeRequests().antMatchers(
                 		HttpMethod.GET,
-                		"/injuries/test**"
+                		"/injuries/**"
                 
                 		).permitAll()
                 
@@ -80,8 +80,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 		HttpMethod.POST,
                 		"/auth/sign-up",
                 		"/auth/log-in",
-                		"/rwm/runner"
+                		"/rwm/**",
+                		"/injuries/**"
                 		).permitAll()
+                			.antMatchers(
+                         	HttpMethod.PUT,
+                            "/rwm/runner/cooper"
+                            ).permitAll()
                
                 // umesto anotacija iynad svake metode, moze i ovde da se proveravaju prava pristupa ya odredjeni URL
                 //.antMatchers(HttpMethod.GET, "/api/cultural-content-category").hasRole("ROLE_ADMIN")

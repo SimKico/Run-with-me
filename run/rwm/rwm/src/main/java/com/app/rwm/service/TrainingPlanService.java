@@ -32,6 +32,7 @@ public class TrainingPlanService {
 	}
 
 	public TrainingPlan addRaceData(Instant raceDate, String raceLocation, TIME_GOAL timeGoal, User user) {
+		System.out.println("add race data" + raceDate);
 		TrainingPlan trainingPlan = trainingPlanRepository.save(new TrainingPlan(raceDate, raceLocation, timeGoal));
 		userService.updateTrainingPlan(trainingPlan, user);
 		kieSession.getAgenda().getAgendaGroup("time").setFocus();
@@ -42,11 +43,14 @@ public class TrainingPlanService {
 		kieSession.fireAllRules();
 		trainingPlanRepository.save(trainingPlan);
 		RunnerData runnerData = user.getRunnerData();
+		System.out.println("runnerData" + runnerData);
 		calculateIntensity(trainingPlan, runnerData);
 		return trainingPlan;
 	}
 
 	private void calculateIntensity(TrainingPlan trainingPlan, RunnerData runnerData) {
+
+		System.out.println("calculate intensity");
 		kieSession.getAgenda().getAgendaGroup("intensity").setFocus();
 		kieSession.insert(trainingPlan);
 		kieSession.insert(runnerData);

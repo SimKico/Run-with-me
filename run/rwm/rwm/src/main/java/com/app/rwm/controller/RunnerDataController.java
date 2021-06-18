@@ -39,20 +39,22 @@ public class RunnerDataController {
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> addRunnerData(@RequestBody BasicRunnerDataDTO basicRunnerDataDTO){
-//		User user = userService.findOneByUsername("user1");
+//		User user = userService.findOneByUsername(username);
 		System.out.println("basicRunnerData" + basicRunnerDataDTO.getGender());
 		System.out.println("basicRunnerData" + basicRunnerDataDTO.getYears());
 		
 //		System.out.println("basicRunnerData" +(basicRunnerDataDTO.getGender()).getClass());
-		RunnerData runnerData = runnerDataService.addRunnerData(BasicRunnerDataMapper.toRunnerData(basicRunnerDataDTO), "user1");
+		RunnerData runnerData = runnerDataService.addRunnerData(BasicRunnerDataMapper.toRunnerData(basicRunnerDataDTO), "admin");
 		System.out.println("basicRunnerData" + runnerData);
 		 return new ResponseEntity<>(runnerData.getId(), HttpStatus.OK);
 	}
 	
 	@PutMapping(path = "/cooper", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RunnerDataDTO> addCooper(@RequestBody CooperDTO distance){
-		User user = userService.findOneByUsername("user1");
-		RunnerData runnerData = runnerDataService.calculateRunnerFitness(distance.getDistance(), user);
+		System.out.println("cooper");
+		User user = userService.findOneByUsername("admin");
+		System.out.println("user" + user.getUsername());
+		RunnerData runnerData = runnerDataService.calculateRunnerFitness(distance.getDistance(),user);
 		 return new ResponseEntity<>(RunnerDataMapper.toDTO(runnerData), HttpStatus.OK);
 	}
 	

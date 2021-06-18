@@ -54,6 +54,8 @@ export class UserListComponent implements OnInit {
     this.runnerService.addRunnerData(runnerData)
       .subscribe(
         results => {
+          console.log("here");
+          localStorage.setItem("isEnteredBasicData", "true");
           this.router.navigate(['/cooper']);
           this.notificationService.openSnackBar('Your data are saved.');
         },

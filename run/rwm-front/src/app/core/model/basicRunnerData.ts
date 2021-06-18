@@ -1,4 +1,3 @@
-import { List } from "semantic-ui-react";
 import { Injury } from "./injury";
 
 export class BasicRunnerData {

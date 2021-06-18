@@ -66,7 +66,9 @@ public class RunnerDataService {
 	}
 
 	public RunnerData calculateRunnerFitness(int distance, User user) {
+		System.out.println("user" + user.getUsername());
 		RunnerData runnerData = user.getRunnerData();
+		System.out.println("user" + user.getRunnerData());
 		runnerData.setDistance(distance);
 		runnerDataRepository.save(runnerData);
 

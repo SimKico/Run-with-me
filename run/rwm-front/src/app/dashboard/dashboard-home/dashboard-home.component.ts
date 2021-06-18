@@ -48,11 +48,12 @@ export class DashboardHomeComponent implements OnInit {
     const date = new Date();
     console.log(date.toISOString());
     const selectedInjury = new Injury("2021-06-03T21:34:33.616Z", this.injury);
+    console.log(selectedInjury);
    
-    this.injuryService.addInjury(selectedInjury);
-    // .subscribe(addedInjury =>{
-    //   console.log(addedInjury);
-    // })
+    this.injuryService.addInjury(selectedInjury)
+    .subscribe(addedInjury =>{
+      console.log(addedInjury);
+    })
   }
 
   test(){

@@ -5,6 +5,12 @@ import { NGXLogger } from 'ngx-logger';
 import { Title } from '@angular/platform-browser';
 
 import { NotificationService } from '../../core/services/notification.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Cooper } from 'src/app/core/model/cooper';
+import { RunnerService } from 'src/app/core/services/runner.service';
+import { race } from 'rxjs';
+import { Race } from 'src/app/core/model/race';
 
 export interface PeriodicElement {
   name: string;
@@ -32,21 +38,44 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+   form: FormGroup;
+   loading: boolean;
+   timeGoal : String;
 
   constructor(
+    private router: Router,
     private logger: NGXLogger,
     private notificationService: NotificationService,
-    private titleService: Title
+    private titleService: Title,
+    private runnerService : RunnerService
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('angular-material-template - Customers');
-    this.logger.log('Customers loaded');
-    this.dataSource.sort = this.sort;
+    this.titleService.setTitle('Runner Basic Data');
+    this.form = new FormGroup({
+      raceDate: new FormControl('', [Validators.required]),
+      // timeGoal: new FormControl('', [Validators.required])
+      });
+  }
 
+  enterData() {
+    this.loading = true;
+    const raceDate = new Cooper(this.form.get("raceDate").value);
+    console.log(raceDate);
+    console.log(this.timeGoal);
+    const raceData = new Race("2021-09-10T21:34:33.616Z", "Derventa", this.timeGoal);
+
+    this.runnerService.enterRace(raceData)
+      .subscribe(
+        results => {
+          console.log("here");
+          this.router.navigate(['/newRace']);
+          this.notificationService.openSnackBar('Your data is successfully saved.');
+        },
+        error => {
+          this.loading = false;
+          this.notificationService.openSnackBar(error.error);
+        }
+      );
   }
 }

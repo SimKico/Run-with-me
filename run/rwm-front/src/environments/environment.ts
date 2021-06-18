@@ -16,5 +16,6 @@ export const environment = {
   signOut: 'auth/sign-out',
   changePassword: 'auth/change-password',
   runnerData : 'rwm/runner',
-  cooper : 'cooper'
+  cooper : 'rwm/runner/cooper',
+  newRace : 'rwm/race/data',
 };
