@@ -6,17 +6,18 @@ import com.app.rwm.enums.PREPARATION_TIME;
 import com.app.rwm.enums.TIME_GOAL;
 import com.app.rwm.enums.INTENSITY;
 
-rule "ADVANCED"
+rule "ADVANCED WEEK_17_TO_24 <= 40 "
 	agenda-group "intensity"
 	lock-on-active
 	when 
-		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_17_TO_24) and
+		$r : RunnerData(years <= 40) 
 	then
-		System.out.println("ADVANCED");
+		System.out.println("ADVANCED WEEK_17_TO_24 <= 40 ");
 		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
 end
 
-rule "STARTER 040"
+rule "STARTER WEEK_17_TO_24 >40"
 	agenda-group "intensity"
 	lock-on-active
 	when 
@@ -32,10 +33,20 @@ rule "ADVANCED WEEK_13_TO_16 <50"
 	lock-on-active
 	when 
 		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
-		$r : RunnerData(years <=50)
+		$r : RunnerData(years <49)
 	then
-		System.out.println("ADVANCED");
+		System.out.println("ADVANCED WEEK_13_TO_16 <50");
 		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
+end
+rule "STARTER WEEK_13_TO_16 50"
+	agenda-group "intensity"
+	lock-on-active
+	when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
+		$r : RunnerData(years > 50)
+	then
+		System.out.println("STARTER WEEK_13_TO_16 50");
+		modify($t){setIntensityLevel(INTENSITY.STARTER);}
 end
 
 rule "ADVANCED WEEK_8_TO_12 <40"
@@ -43,22 +54,36 @@ rule "ADVANCED WEEK_8_TO_12 <40"
 	lock-on-active
 		when 
 		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_8_TO_12)
-		$r : RunnerData(years <=40)
+		$r : RunnerData(years < 39)
 	then
-		System.out.println("ADVANCED");
+		System.out.println("ADVANCED WEEK_8_TO_12 <40");
 		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
 end
 
-rule "STARTER 50"
+rule "ADVANCED WEEK_8_TO_12 >40"
 	agenda-group "intensity"
 	lock-on-active
-	when 
-		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
-		$r : RunnerData(years > 50)
+	no-loop
+		when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_8_TO_12)
+		$r : RunnerData(years > 40)
 	then
-		System.out.println("STARTER");
+		System.out.println("ADVANCED WEEK_8_TO_12 >40");
 		modify($t){setIntensityLevel(INTENSITY.STARTER);}
 end
+
+rule "MORE"
+	agenda-group "intensity"
+	lock-on-active
+	no-loop
+		when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.MORE_THAN_24)
+	then
+		System.out.println("MORE");
+		modify($t){setCanceledPreparation(true)}
+end
+
+
 
 
 

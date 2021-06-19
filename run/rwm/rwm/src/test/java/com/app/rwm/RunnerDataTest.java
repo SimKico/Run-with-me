@@ -140,77 +140,7 @@ public class RunnerDataTest {
 	     assertEquals(PHYSICAL_FITNESS.EXCELLENT, runnerData.getPhysicalFitness());
 	}
 	
-//	@Test
-//	public void injury() {
-//	     KieSession kieSession = kieContainer.newKieSession("test-session");
-//
-//	     kieSession.getAgenda().getAgendaGroup("injury").setFocus();
-//	     LocalDate date = LocalDate.parse("2021-06-15");
-//	     Instant instant = date.atStartOfDay(ZoneId.of("Europe/Paris")).toInstant();
-//	     TrainingPlan trainingPlan = new TrainingPlan(instant, "Derventa", TIME_GOAL.BETWEEN_1h20m_AND_1h50m);
-//	     RunnerData runnerData = new RunnerData(28,170,75,GENDER.FEMALE,2000);
-//	     Long id = (long) 1;
-//	 	 User user = new User(id, "Snjezana", "Simic", "user1@gmail.com", true, "user1", "fasdf",
-//				USER_ROLE.ROLE_RUNNER, trainingPlan, runnerData);
-//	 	 
-//	     Instant dateInjury = Instant.now();
-//	     Injury injury = new Injury(dateInjury, INJURY_TYPE.KNEE_PAIN, runnerData);
-//	     Collection<Injury> injuries = new HashSet<Injury>();
-//	     injuries.add(injury);
-//	     Set<Injury> injuriesRunner = new HashSet<Injury>();
-//	     injuriesRunner.add(injury);
-//	     
-//	     runnerData.setInjury(injuriesRunner);
-//	     kieSession.setGlobal("injuries", injuries);
-//		 kieSession.insert(injury);
-//		 kieSession.insert(runnerData);
-//	     
-//	     kieSession.fireAllRules();
-//	     
-//	     assertEquals(INJURY_CATEGORY.MINOR_INJURY, runnerData.getInjuryCategory());
-//	}
-//	
-//	@Test
-//	public void injury_brokenLeg() {
-//	     KieSession kieSession = kieContainer.newKieSession("test-session");
-//
-//	     kieSession.getAgenda().getAgendaGroup("injury").setFocus();
-//	     LocalDate date = LocalDate.parse("2021-06-06");
-//	     Instant instant = date.atStartOfDay(ZoneId.of("Europe/Paris")).toInstant();
-//	     TrainingPlan trainingPlan = new TrainingPlan(instant, "Derventa", TIME_GOAL.BETWEEN_1h20m_AND_1h50m);
-//	     RunnerData runnerData = new RunnerData(28,170,75,GENDER.FEMALE,2000);
-//	     Long id = (long) 1;
-//	 	 User user = new User(id, "Snjezana", "Simic", "user1@gmail.com", true, "user1", "fasdf",
-//				USER_ROLE.ROLE_RUNNER, trainingPlan, runnerData);
-//	     Instant dateInjury = Instant.now();
-//	     Injury injury = new Injury(dateInjury, INJURY_TYPE.BROKEN_LEG,runnerData);
-//	     
-//	     kieSession.insert(injury);
-//	     
-//	     kieSession.fireAllRules();
-//	     
-//	     assertEquals(runnerData.getInjuryCategory(), INJURY_CATEGORY.SEVERE_INJURY);
-//	}
-	
-//	@Test
-//	public void injuryBrokenLeg() {
-//	     KieSession kieSession = kieContainer.newKieSession("test-session");
-//
-//	     kieSession.getAgenda().getAgendaGroup("cooper").setFocus();
-//	     LocalDate date = LocalDate.parse("2021-07-31");
-//	     Instant instant = date.atStartOfDay(ZoneId.of("Europe/Paris")).toInstant();
-//	     TrainingPlan trainingPlan = new TrainingPlan(instant, "Derventa", TIME_GOAL.BETWEEN_1h20m_AND_1h50m);
-//	     RunnerData runnerData = new RunnerData(28,170,75,GENDER.FEMALE,2000);
-//	     Long id = (long) 1;
-//	 	 User user = new User(id, "Snjezana", "Simic", "user1@gmail.com", true, "user1", "fasdf",
-//				USER_ROLE.ROLE_RUNNER, trainingPlan, runnerData);
-//	     Instant dateInjury = Instant.now();
-//	     Injury injury = new Injury(dateInjury, INJURY_TYPE.BROKEN_LEG,runnerData);
-//	     
-//	     kieSession.insert(injury);
-//	     kieSession.fireAllRules();
-//	     assertEquals(runnerData.getInjuryCategory(), INJURY_CATEGORY.SEVERE_INJURY);
-//	}
+
 	
 	@Test
 	public void raceData_MORE_THAN_24() {
@@ -234,12 +164,7 @@ public class RunnerDataTest {
 
 		 assertEquals(trainingPlan.getPreparationTime(), PREPARATION_TIME.MORE_THAN_24);
 	
-//	     kieSession.getAgenda().getAgendaGroup("intensity").setFocus();
-//		 kieSession.insert(trainingPlan);
-//		 kieSession.insert(runnerData);
-//		 kieSession.fireAllRules();
-			
-//		assertEquals(trainingPlan.getIntensityLevel(), INTENSITY.ADVANCED);;
+
 	}
 	
 	@Test
@@ -263,13 +188,7 @@ public class RunnerDataTest {
 	     kieSession.fireAllRules();
 
 		 assertEquals(trainingPlan.getPreparationTime(),null);
-	
-//	     kieSession.getAgenda().getAgendaGroup("intensity").setFocus();
-//		 kieSession.insert(trainingPlan);
-//		 kieSession.insert(runnerData);
-//		 kieSession.fireAllRules();
-			
-//		assertEquals(trainingPlan.getIntensityLevel(), INTENSITY.ADVANCED);;
+
 	}
 
 	@Test
