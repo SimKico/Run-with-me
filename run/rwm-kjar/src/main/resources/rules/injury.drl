@@ -35,7 +35,7 @@ rule "Injury severe more than 1 injury"
 				  		 ) from injuries,
 				$count: collectList($rd)
 			)
-		eval ($count.size() > 1)
+		eval ($count.size() >= 2)
 	then
 		System.out.println("More injuries");
         modify($r){setInjuryCategory(INJURY_CATEGORY.SEVERE_INJURY);}

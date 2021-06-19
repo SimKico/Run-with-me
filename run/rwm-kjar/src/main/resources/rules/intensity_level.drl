@@ -16,6 +16,17 @@ rule "ADVANCED"
 		modify($t){setIntensityLevel(INTENSITY.ADVANCED);}
 end
 
+rule "STARTER 040"
+	agenda-group "intensity"
+	lock-on-active
+	when 
+		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
+		$r : RunnerData(years > 40 )
+	then
+		System.out.println("STARTER");
+		modify($t){setIntensityLevel(INTENSITY.STARTER);}
+end
+
 rule "ADVANCED WEEK_13_TO_16 <50"
 	agenda-group "intensity"
 	lock-on-active
@@ -49,14 +60,5 @@ rule "STARTER 50"
 		modify($t){setIntensityLevel(INTENSITY.STARTER);}
 end
 
-rule "STARTER 040"
-	agenda-group "intensity"
-	lock-on-active
-	when 
-		$t : TrainingPlan(preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
-		$r : RunnerData(years > 40 && years <=50)
-	then
-		System.out.println("STARTER");
-		modify($t){setIntensityLevel(INTENSITY.STARTER);}
-end
+
 

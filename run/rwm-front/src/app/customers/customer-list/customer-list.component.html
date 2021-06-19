@@ -28,6 +28,12 @@
                   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
               </mat-card-content>
           </mat-card>
+
+          <mat-card *ngIf  = "link">
+              <p>This is your training: </p>
+              <a target="_blank" href="{{link}}">plan</a>    
+          </mat-card>
       </form>   
+
    </div>
 </div>

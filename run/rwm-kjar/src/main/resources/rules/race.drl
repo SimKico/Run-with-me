@@ -67,3 +67,13 @@ rule "novice22"
 		System.out.println("novice22");
 		modify($t){setTrainingName("novice22");}
 end
+
+rule "nan"
+	agenda-group "plan"
+	lock-on-active
+	when 
+		$t : TrainingPlan(intensityLevel == null)
+	then
+		System.out.println("nan");
+		modify($t){setTrainingName("nan"),setCanceledPreparation(true);}
+end

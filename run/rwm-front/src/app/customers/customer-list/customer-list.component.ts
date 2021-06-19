@@ -41,6 +41,7 @@ export class CustomerListComponent implements OnInit {
    form: FormGroup;
    loading: boolean;
    timeGoal : String;
+   link : String;
 
   constructor(
     private router: Router,
@@ -70,7 +71,14 @@ export class CustomerListComponent implements OnInit {
         results => {
           console.log("here");
           this.loading = false;
-          // this.router.navigate(['/addRace']);
+          console.log(results);
+          if(results === "novice20"){this.link = 'https://www.hbffitness.com.au/app/uploads/2015/03/HBF11234-RFAR-8-week-Training-Guide-2015_21km-Advanced-Run.pdf';}//8advanced
+          if(results === "novice00"){this.link = 'https://www.personaltraineroxford.com/uploads/files/YOURFIRSTHALFMARATHONPLAN-1.pdf';}//8 starter
+          if(results === "novice01"){this.link = 'https://www.halhigdon.com/wp-content/uploads/2018/04/Novice-1-Half-Marathon-Printable.pdf';}//12 starter
+          if(results === "novice21"){this.link = 'https://www.halhigdon.com/wp-content/uploads/2018/04/Advanced-Half-Marathon-Printable.pdf';}//12 advenced
+          
+          if(results === "novice22"){this.link = 'https://content.nike.com/content/dam/one-nike/en_lu/HO16/Running/NRC-trainingplans/PDFs/nike-run-club-marathon-en_LU.pdf';}//18 starter
+          if(results === "novice21"){this.link = 'https://www.medibank.com.au/content/dam/livebetter/en/docs/running-guides/Training-Guide-Marathon-Intermediate-18week.pdf';}//18 advenced
           this.notificationService.openSnackBar('Your data is successfully saved.');
         },
         error => {
