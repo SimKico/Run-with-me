@@ -43,6 +43,7 @@ public class TrainingPlanService {
 //		LocalDate now = LocalDate.now();
 //		System.out.println("now" + now);
 //		kieSession.setGlobal("nowTime", now);
+		kieSession.insert(user.getRunnerData());
 		kieSession.insert(trainingPlan);
 		kieSession.fireAllRules();
 		trainingPlanRepository.save(trainingPlan);

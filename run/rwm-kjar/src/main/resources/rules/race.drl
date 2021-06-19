@@ -8,71 +8,71 @@ import com.app.rwm.model.RunnerData;
 import com.app.rwm.enums.PREPARATION_TIME;
 import com.app.rwm.enums.INTENSITY;
 
-rule "novice00"
+rule "STARTER_WEEK_8_TO_12"
 	agenda-group "plan"
 	lock-on-active
 	when 
-		$t : TrainingPlan(intensityLevel == INTENSITY.STARTER, preparationTime == PREPARATION_TIME.WEEK_8_TO_12)
+		$t : TrainingPlan(intensityLevel == INTENSITY.STARTER || intensityLevel == null , preparationTime == PREPARATION_TIME.WEEK_8_TO_12)
 	then
-		System.out.println("novice00");
-		modify($t){setTrainingName("novice00");}
+		System.out.println("STARTER_WEEK_8_TO_12");
+		modify($t){setTrainingName("STARTER_WEEK_8_TO_12");}
 end
 
-rule "novice01"
+rule "STARTER_WEEK_13_TO_16"
 	agenda-group "plan"
 	lock-on-active
 	when 
-		$t : TrainingPlan(intensityLevel == INTENSITY.STARTER, preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
+		$t : TrainingPlan(intensityLevel == INTENSITY.STARTER || intensityLevel == null , preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
 	then
-		System.out.println("novice01");
-		modify($t){setTrainingName("novice01");}
+		System.out.println("STARTER_WEEK_13_TO_16");
+		modify($t){setTrainingName("STARTER_WEEK_13_TO_16");}
 end
 
-rule "novice02"
+rule "STARTER_WEEK_17_TO_24"
 	agenda-group "plan"
 	lock-on-active
 	when 
-		$t : TrainingPlan(intensityLevel == INTENSITY.STARTER, preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
+		$t : TrainingPlan(intensityLevel == INTENSITY.STARTER || intensityLevel == null , preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
 	then
-		System.out.println("novice02");
-		modify($t){setTrainingName("novice02");}
+		System.out.println("STARTER_WEEK_17_TO_24");
+		modify($t){setTrainingName("STARTER_WEEK_17_TO_24");}
 end
 
-rule "novice20"
+rule "ADVANCED_WEEK_8_TO_12"
 	agenda-group "plan"
 	lock-on-active
 	when 
 		$t : TrainingPlan(intensityLevel == INTENSITY.ADVANCED, preparationTime == PREPARATION_TIME.WEEK_8_TO_12)
 	then
-		System.out.println("novice20");
-		modify($t){setTrainingName("novice20");}
+		System.out.println("ADVANCED_WEEK_8_TO_12");
+		modify($t){setTrainingName("ADVANCED_WEEK_8_TO_12");}
 end
 
-rule "novice21"
+rule "ADVANCED_WEEK_13_TO_16"
 	agenda-group "plan"
 	lock-on-active
 	when 
 		$t : TrainingPlan(intensityLevel == INTENSITY.ADVANCED, preparationTime == PREPARATION_TIME.WEEK_13_TO_16)
 	then
-		System.out.println("novice21");
-		modify($t){setTrainingName("novice21");}
+		System.out.println("ADVANCED_WEEK_13_TO_16");
+		modify($t){setTrainingName("ADVANCED_WEEK_13_TO_16");}
 end
 
-rule "novice22"
+rule "ADVANCED_WEEK_17_TO_24"
 	agenda-group "plan"
 	lock-on-active
 	when 
-		$t : TrainingPlan(intensityLevel == INTENSITY.ADVANCED, preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
+		$t : TrainingPlan(intensityLevel == INTENSITY.ADVANCED , preparationTime == PREPARATION_TIME.WEEK_17_TO_24)
 	then
-		System.out.println("novice22");
-		modify($t){setTrainingName("novice22");}
+		System.out.println("ADVANCED_WEEK_17_TO_24");
+		modify($t){setTrainingName("ADVANCED_WEEK_17_TO_24");}
 end
 
 rule "nan"
 	agenda-group "plan"
 	lock-on-active
 	when 
-		$t : TrainingPlan(intensityLevel == null)
+		$t : TrainingPlan(intensityLevel == null )
 	then
 		System.out.println("nan");
 		modify($t){setTrainingName("nan"),setCanceledPreparation(true);}

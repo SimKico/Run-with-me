@@ -26,6 +26,7 @@ rule "Time 8 to 12 weeks excellent"
 	then
 		System.out.println("Time 8 to 12 weeks");
 		modify($t){setPreparationTime(PREPARATION_TIME.WEEK_8_TO_12);}
+	
 end
 
 rule "Time 8 to 12 weeks good"
